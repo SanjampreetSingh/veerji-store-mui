@@ -6,16 +6,13 @@ import {
 } from "react-router-dom";
 
 import HomeRouter from "../layouts/home/HomeRouter";
-
-function home(params) {
-  return <h1>h1</h1>;
-}
+import HomeComponent from "../components/user/home/HomeComponent";
 
 export default function UIRouter() {
   return (
     <Router>
       <Switch>
-        <HomeRouter exact path="/" component={home} />
+        <HomeRouter exact path="/" component={HomeComponent} />
         <Route>
           <Redirect to="/" />
         </Route>

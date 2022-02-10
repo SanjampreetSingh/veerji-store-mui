@@ -13,7 +13,7 @@ export default function UserFooter() {
         py: 3,
         px: 2,
         mt: "auto",
-        backgroundColor: (theme) => theme.palette.grey[100],
+        backgroundColor: (theme) => theme.palette.grey[50],
       }}
     >
       <Grid container justifyContent="center">

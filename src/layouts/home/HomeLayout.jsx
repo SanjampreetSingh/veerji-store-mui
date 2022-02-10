@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import UserHeader from "../../components/user/common/header/UserHeader";
@@ -14,12 +13,11 @@ export default function HomeLayout(props) {
         flexDirection: "column",
         minHeight: "100vh",
       }}
+      component="main"
     >
       <CssBaseline />
       <UserHeader isAuthenticated={isAuthenticated} />
-      <Container component="main" maxWidth="lg">
-        {children}
-      </Container>
+      {children}
       <UserFooter />
     </Box>
   );

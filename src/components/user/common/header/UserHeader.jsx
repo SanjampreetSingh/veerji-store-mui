@@ -15,8 +15,8 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 import { Link } from "react-router-dom";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["Menu", "Milk Subscriptions"];
+const settings = ["Profile", "Dashboard", "Logout"];
 
 export default function UserHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -81,7 +81,9 @@ export default function UserHeader() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Link to={"/" + page.toLowerCase().replace(/\s/g, "")}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -100,11 +102,22 @@ export default function UserHeader() {
             <ShoppingBasketIcon />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              component="a"
+              href="https://www.google.com/maps/dir//Veerji+Departmental+Store/data=!4m8!4m7!1m0!1m5!1m1!1s0x391a8146052e6131:0xfd2081c026ecda8b!2m2!1d75.80588449999999!2d30.8778632"
+              target="_blank"
+            >
+              Get Directions
+            </Button>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
+                component={Link}
+                to={"/" + page.toLowerCase().replace(/\s/g, "")}
               >
                 {page}
               </Button>
