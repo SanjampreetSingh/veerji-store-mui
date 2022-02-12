@@ -6,7 +6,8 @@ import Typography from "@mui/material/Typography";
 
 import { Link } from "react-router-dom";
 
-export default function UserLoginComponent() {
+export default function UserLoginComponent(props) {
+  const { error, submitError, handleSubmit, handleChange } = props;
   return (
     <Box component="form" sx={{ mt: 1 }}>
       <TextField
@@ -17,6 +18,7 @@ export default function UserLoginComponent() {
         name="email"
         autoComplete="email"
         autoFocus
+        onChange={handleChange}
       />
       <TextField
         margin="normal"
@@ -26,8 +28,15 @@ export default function UserLoginComponent() {
         label="Password"
         type="password"
         autoComplete="current-password"
+        onChange={handleChange}
       />
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={handleSubmit}
+      >
         Sign In
       </Button>
       <Grid container>

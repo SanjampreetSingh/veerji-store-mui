@@ -10,8 +10,8 @@ import HomeRouter from "../layouts/home/HomeRouter";
 import LoginRouter from "../layouts/login/LoginRouter";
 // Component
 import HomeComponent from "../components/user/home/HomeComponent";
-import UserLoginComponent from "../components/user/login/UserLoginComponent";
-import UserRegisterComponent from "../components/user/register/UserRegisterComponent";
+import UserLogin from "../containers/user/login/UserLogin";
+import UserRegister from "../containers/user/register/UserRegister";
 
 export default function UIRouter() {
   return (
@@ -21,13 +21,13 @@ export default function UIRouter() {
         <LoginRouter
           exact
           path="/login"
-          component={UserLoginComponent}
+          component={UserLogin}
           heading="Sign in"
         />
         <LoginRouter
           exact
           path="/register"
-          component={UserRegisterComponent}
+          component={UserRegister}
           heading="Sign up"
         />
         {/* Home Router */}

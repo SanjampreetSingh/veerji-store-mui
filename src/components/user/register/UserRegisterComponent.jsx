@@ -3,10 +3,16 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
 import { Link } from "react-router-dom";
 
-export default function UserRegisterComponent() {
+export default function UserRegisterComponent(props) {
+  const { locality, error, submitError, handleChange, handleSubmit } = props;
+
   return (
     <Box component="form" sx={{ mt: 1 }}>
       <TextField
@@ -19,6 +25,7 @@ export default function UserRegisterComponent() {
         autoFocus
         placeholder="Happy Singh"
         autoComplete="name"
+        onChange={handleChange}
       />
       <TextField
         type="email"
@@ -29,6 +36,7 @@ export default function UserRegisterComponent() {
         name="email"
         placeholder="name@example.com"
         autoComplete="email"
+        onChange={handleChange}
       />
       <TextField
         type="tel"
@@ -44,6 +52,7 @@ export default function UserRegisterComponent() {
           maxLength: "10",
           inputMode: "numeric",
         }}
+        onChange={handleChange}
       />
       <TextField
         margin="normal"
@@ -53,6 +62,7 @@ export default function UserRegisterComponent() {
         label="Password"
         autoComplete="new-password"
         type="password"
+        onChange={handleChange}
       />
       <TextField
         type="text"
@@ -65,8 +75,32 @@ export default function UserRegisterComponent() {
         inputProps={{
           maxLength: "7",
         }}
+        onChange={handleChange}
       />
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+      <FormControl fullWidth sx={{ mt: 2 }}>
+        <InputLabel>Locality</InputLabel>
+        <Select
+          labelId="locality"
+          name="locality"
+          label="Locality"
+          onChange={handleChange}
+          autoComplete="off"
+        >
+          <MenuItem>Select Locality</MenuItem>
+          {locality?.map((val, idx) => (
+            <MenuItem key={idx} value={val?.id}>
+              {val?.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={handleSubmit}
+      >
         Sign Up
       </Button>
       <Grid container>
