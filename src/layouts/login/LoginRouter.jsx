@@ -30,7 +30,7 @@ export default function LoginRouter({
     } else {
       setIsAuthenticated(false)
     }
-  }, [])
+  }, [token])
 
   let type = 0
   if (token) {
