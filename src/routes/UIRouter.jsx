@@ -12,6 +12,11 @@ import LoginRouter from "../layouts/login/LoginRouter";
 import HomeComponent from "../components/user/home/HomeComponent";
 import UserLogin from "../containers/user/login/UserLogin";
 import UserRegister from "../containers/user/register/UserRegister";
+import AdminRouter from "../layouts/admin/AdminRouter";
+
+function AdminDashboard() {
+  return <h1>Admin</h1>;
+}
 
 export default function UIRouter() {
   return (
@@ -22,16 +27,18 @@ export default function UIRouter() {
           exact
           path="/login"
           component={UserLogin}
-          heading="Sign in"
+          heading="Login"
         />
         <LoginRouter
           exact
           path="/register"
           component={UserRegister}
-          heading="Sign up"
+          heading="Register"
         />
         {/* Home Router */}
         <HomeRouter exact path="/" component={HomeComponent} />
+        {/* Admin Routes */}
+        <AdminRouter exact path="/admin" component={AdminDashboard} />
         <Route>
           <Redirect to="/" />
         </Route>

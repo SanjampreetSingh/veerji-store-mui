@@ -30,7 +30,8 @@ export default function LoginRouter({
     } else {
       setIsAuthenticated(false)
     }
-  }, [token])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   let type = 0
   if (token) {

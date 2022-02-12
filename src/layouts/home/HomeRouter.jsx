@@ -26,7 +26,8 @@ export default function HomeRouter({ component: Component, ...rest }) {
     } else {
       setIsAuthenticated(false)
     }
-  }, [token])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Route
