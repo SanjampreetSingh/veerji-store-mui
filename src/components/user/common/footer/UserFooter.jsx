@@ -16,9 +16,9 @@ export default function UserFooter() {
         backgroundColor: (theme) => theme.palette.grey[50],
       }}
     >
-      <Grid container justifyContent="center">
-        <Grid item xs={12} sm={4}>
-          <Typography variant="h6" color="text.secondary">
+      <Grid container justifyContent="center" alignContent="center">
+        <Grid item sx={{ display: { xs: "none", md: "block" } }} md={4}>
+          <Typography variant="h6" color="text.secondary" align="center">
             {"© " + new Date().getFullYear()} &nbsp;
             <Link
               color="inherit"
@@ -29,12 +29,13 @@ export default function UserFooter() {
             </Link>
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={2}>
-          <Link href="https://veerji.store/">
-            <ShoppingBasketIcon />
-          </Link>
+        <Grid item xs={12} sx={{ display: { xs: "12", md: "none" } }}>
+          <Typography align="center">
+            <Link href="https://veerji.store/">
+              <ShoppingBasketIcon />
+            </Link>
+          </Typography>
         </Grid>
-        <Grid item xs={12} sm={2} />
       </Grid>
     </Box>
   );
