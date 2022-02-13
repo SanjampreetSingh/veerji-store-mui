@@ -24,7 +24,12 @@ import { mainListItems, secondaryListItems } from "./listItems";
 
 function Copyright(props) {
   return (
-    <Grid container justifyContent="center" alignContent="center" {...props}>
+    <Grid
+      container
+      justifyContent="center"
+      alignContent="center"
+      sx={{ pt: 4 }}
+    >
       <Grid item sx={{ display: { xs: "none", md: "block" } }} md={4}>
         <Typography variant="h6" color="text.secondary" align="center">
           {"© " + new Date().getFullYear()} &nbsp;
@@ -133,15 +138,17 @@ export default function AdminLayout(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ display: { xs: "none", md: "flex" } }}
+              >
+                Dashboard
+              </Typography>
+            </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -196,10 +203,7 @@ export default function AdminLayout(props) {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            backgroundColor: (theme) => theme.palette.grey[100],
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
@@ -210,7 +214,7 @@ export default function AdminLayout(props) {
             <Grid container spacing={3}>
               {children}
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
+            <Copyright />
           </Container>
         </Box>
       </Box>

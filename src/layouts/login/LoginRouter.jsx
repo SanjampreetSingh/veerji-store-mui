@@ -1,63 +1,35 @@
-import { useEffect, useState } from "react"
-import { Route, Redirect } from "react-router-dom"
-import jwt_decode from "jwt-decode"
+import { Route, Redirect } from "react-router-dom";
 
-import LoginLayout from "./LoginLayout"
+import LoginLayout from "./LoginLayout";
+import { useAuth } from "../../context/auth/AuthProvider";
 
 export default function LoginRouter({
   heading,
   component: Component,
   ...rest
 }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(null)
-  let token = localStorage?.getItem("refresh_token")
-  if (token === undefined || token === null || token === "undefined") {
-    localStorage.removeItem("access_token")
-    localStorage.removeItem("refresh_token")
-  }
+  const auth = useAuth();
 
-  useEffect(() => {
-    if (token) {
-      let decoded = jwt_decode(token)
-      let tokenExpiration = decoded?.exp
-      let dateNow = new Date()
-
-      if (tokenExpiration < dateNow.getTime() / 1000) {
-        setIsAuthenticated(false)
-      } else {
-        setIsAuthenticated(true)
-      }
-    } else {
-      setIsAuthenticated(false)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  let type = 0
-  if (token) {
-    type = jwt_decode(token).type
-  }
-
-  if (isAuthenticated === null) {
-    return <></>
+  if (auth === null) {
+    return <></>;
   }
 
   return (
     <>
-      {!isAuthenticated ? (
+      {!auth?.state?.isAuthenticated ? (
         <Route
           {...rest}
-          render={props => (
-            <LoginLayout heading={heading} isAuthenticated={isAuthenticated}>
+          render={(props) => (
+            <LoginLayout heading={heading}>
               <Component {...props} />
             </LoginLayout>
           )}
         />
-      ) : type === 1 ? (
+      ) : auth?.state?.authType === 1 ? (
         <Redirect to="/admin" />
       ) : (
         <Redirect to="/user" />
       )}
     </>
-  )
+  );
 }

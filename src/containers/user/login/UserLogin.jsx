@@ -5,9 +5,11 @@ import jwt_decode from "jwt-decode";
 import { instance } from "../../../services/ApiCall";
 import { getToken } from "../../../services/services";
 import UserLoginComponent from "../../../components/user/login/UserLoginComponent";
+import { useAuth } from "../../../context/auth/AuthProvider";
 
 export default function UserLogin() {
   const history = useHistory();
+  const auth = useAuth();
 
   const formObj = Object.freeze({
     email: "",
@@ -40,7 +42,8 @@ export default function UserLogin() {
           instance.defaults.headers["Authorization"] =
             "Bearer " + localStorage.getItem("access_token");
           const decoded = jwt_decode(localStorage.getItem("access_token"));
-          if (decoded?.type === 1) {
+          auth.update()
+          if (decoded?.type === 1){
             history.push("/admin");
           } else {
             history.push("/user");
