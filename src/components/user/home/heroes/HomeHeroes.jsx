@@ -4,7 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
-export default function HomeHeroes(params) {
+import { Link } from "react-router-dom";
+
+import { useAuth } from "../../../../context/auth/AuthProvider";
+
+export default function HomeHeroes() {
+  const auth = useAuth();
   return (
     <Box
       sx={{
@@ -35,8 +40,18 @@ export default function HomeHeroes(params) {
         subscription online and order from Veerji Food Court too.
       </Typography>
       <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
-        <Button variant="contained">Milk Subscriptions</Button>
-        <Button variant="outlined">Menu</Button>
+        {auth?.state?.isAuthenticated ? (
+          <>
+            <Button variant="contained">Milk Subscriptions</Button>
+            <Button variant="outlined">Menu</Button>
+          </>
+        ) : (
+          <>
+            <Button variant="contained" component={Link} to="/login">
+              Login to enter
+            </Button>
+          </>
+        )}
       </Stack>
     </Box>
   );

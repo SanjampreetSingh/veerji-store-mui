@@ -15,10 +15,13 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 import { Link } from "react-router-dom";
 
-const pages = ["Menu", "Milk Subscriptions"];
+import { useAuth } from "../../../../context/auth/AuthProvider";
+
 const settings = ["Profile", "Dashboard", "Logout"];
+const pages = ["Menu", "Milk Subscriptions"];
 
 export default function UserHeader() {
+  const auth = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -91,13 +94,15 @@ export default function UserHeader() {
                   Get Directions
                 </Typography>
               </MenuItem>
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link to={"/" + page.toLowerCase().replace(/\s/g, "")}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </Link>
-                </MenuItem>
-              ))}
+              {auth?.state?.isAuthenticated
+                ? pages.map((page) => (
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Link to={"/" + page.toLowerCase().replace(/\s/g, "")}>
+                        <Typography textAlign="center">{page}</Typography>
+                      </Link>
+                    </MenuItem>
+                  ))
+                : null}
             </Menu>
           </Box>
           <Typography
@@ -123,65 +128,73 @@ export default function UserHeader() {
             >
               Get Directions
             </Button>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-                component={Link}
-                to={"/" + page.toLowerCase().replace(/\s/g, "")}
+            {auth?.state?.isAuthenticated
+              ? pages.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                    component={Link}
+                    to={"/" + page.toLowerCase().replace(/\s/g, "")}
+                  >
+                    {page}
+                  </Button>
+                ))
+              : null}
+          </Box>
+          {auth?.state?.isAuthenticated ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
               >
-                {page}
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
+            <>
+              {" "}
+              <Button
+                sx={{ backgroundColor: "#bdbdbd", borderColor: "#bdbdbd" }}
+                variant="contained"
+                size="small"
+                component={Link}
+                to="/register"
+              >
+                Sign Up
               </Button>
-            ))}
-          </Box>
-          <Button
-            sx={{ backgroundColor: "#bdbdbd", borderColor: "#bdbdbd" }}
-            variant="contained"
-            size="small"
-            component={Link}
-            to="/register"
-          >
-            Sign Up
-          </Button>
-          <Button
-            sx={{ ml: 1, color: "white", borderColor: "white" }}
-            variant="outlined"
-            size="small"
-            component={Link}
-            to="/login"
-          >
-            Login
-          </Button>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              <Button
+                sx={{ ml: 1, color: "white", borderColor: "white" }}
+                variant="outlined"
+                size="small"
+                component={Link}
+                to="/login"
+              >
+                Login
+              </Button>
+            </>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
