@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import LoadingButton from "@mui/lab/LoadingButton";
+import FormHelperText from "@mui/material/FormHelperText";
 
 import { Link } from "react-router-dom";
 
@@ -14,12 +15,12 @@ import UserAlert from "../common/alert/UserAlert";
 
 export default function UserRegisterComponent(props) {
   const {
-    locality,
     error,
-    submitError,
+    locality,
     formState,
-    handleChange,
+    submitError,
     handleSubmit,
+    handleChange,
     setSubmitError,
     submitButtonLoading,
   } = props;
@@ -113,24 +114,33 @@ export default function UserRegisterComponent(props) {
         helperText={error?.error === true ? error?.house_number : ""}
         value={formState?.house_number}
       />
-      <FormControl fullWidth sx={{ mt: 2 }}>
-        <InputLabel>Locality</InputLabel>
+      <FormControl
+        fullWidth
+        sx={{ mt: 2 }}
+        error={error?.error === true && error?.locality !== "" ? true : false}
+      >
+        <InputLabel>Select Locality</InputLabel>
         <Select
           labelId="locality"
           name="locality"
-          label="Locality"
+          label="Select Locality"
           onChange={handleChange}
           autoComplete="off"
           required
           value={formState?.locality}
         >
-          <MenuItem>Select Locality</MenuItem>
+          <MenuItem value="">
+            <em>Select Locality</em>
+          </MenuItem>
           {locality?.map((val, idx) => (
             <MenuItem key={idx} value={val?.id}>
               {val?.name}
             </MenuItem>
           ))}
         </Select>
+        {error?.error === true ? (
+          <FormHelperText>{error?.locality}</FormHelperText>
+        ) : null}
       </FormControl>
       <LoadingButton
         type="submit"

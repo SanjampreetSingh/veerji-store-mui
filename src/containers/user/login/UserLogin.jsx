@@ -5,11 +5,13 @@ import jwt_decode from "jwt-decode";
 import { instance } from "../../../services/ApiCall";
 import { getToken } from "../../../services/services";
 import { useAuth } from "../../../context/auth/AuthProvider";
+import { useLoader } from "../../../context/loader/LoaderProvider";
 import UserLoginComponent from "../../../components/user/login/UserLoginComponent";
 
 export default function UserLogin() {
   const history = useHistory();
   const auth = useAuth();
+  const loading = useLoader();
 
   const formObj = Object.freeze({
     email: "",
@@ -34,6 +36,7 @@ export default function UserLogin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setButtonLoading(true);
+    loading?.startLoader();
     getToken({
       email: formState?.email,
       password: formState?.password,
@@ -44,6 +47,7 @@ export default function UserLogin() {
             isError: true,
             errorMessage: JSON.stringify(res?.error?.response?.data),
           });
+          loading?.stopLoader();
         } else {
           localStorage.setItem("access_token", res?.data?.access);
           localStorage.setItem("refresh_token", res?.data?.refresh);
@@ -54,6 +58,7 @@ export default function UserLogin() {
             isError: false,
             errorMessage: "",
           });
+          loading?.stopLoader();
           auth.update();
           setButtonLoading(false);
           if (decoded?.type === 1) {
@@ -64,6 +69,7 @@ export default function UserLogin() {
         }
       })
       .catch((error) => {
+        loading?.stopLoader();
         setButtonLoading(false);
         setSubmitError({
           isError: true,
@@ -133,6 +139,7 @@ export default function UserLogin() {
       handleChange={handleChange}
       setSubmitError={setSubmitError}
       submitButtonLoading={buttonloading}
+      formState={formState}
     />
   );
 }

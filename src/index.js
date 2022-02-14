@@ -12,17 +12,20 @@ import theme from "./assets/js/theme";
 // UI Router
 import UIRouter from "./routes/UIRouter";
 
-// AuthProvider
+// Context Provider
 import AuthProvider from "./context/auth/AuthProvider";
+import LoaderProvider from "./context/loader/LoaderProvider";
 
 const app = (
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <AuthProvider>
-        <UIRouter />
-      </AuthProvider>
+      <LoaderProvider>
+        <AuthProvider>
+          <UIRouter />
+        </AuthProvider>
+      </LoaderProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

@@ -11,9 +11,10 @@ import UserAlert from "../common/alert/UserAlert";
 export default function UserLoginComponent(props) {
   const {
     error,
+    formState,
     submitError,
-    handleSubmit,
     handleChange,
+    handleSubmit,
     setSubmitError,
     submitButtonLoading,
   } = props;
@@ -38,6 +39,7 @@ export default function UserLoginComponent(props) {
         onChange={handleChange}
         error={error?.error === true && error?.email !== "" ? true : false}
         helperText={error?.error === true ? error?.email : ""}
+        value={formState?.email}
       />
       <TextField
         margin="normal"
@@ -50,6 +52,7 @@ export default function UserLoginComponent(props) {
         onChange={handleChange}
         error={error?.error === true && error?.password !== "" ? true : false}
         helperText={error?.error === true ? error?.password : ""}
+        value={formState?.password}
       />
       <LoadingButton
         type="submit"

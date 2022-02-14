@@ -93,8 +93,19 @@ export default function UserHeader() {
                   textAlign="center"
                   href="https://www.google.com/maps/dir//Veerji+Departmental+Store/data=!4m8!4m7!1m0!1m5!1m1!1s0x391a8146052e6131:0xfd2081c026ecda8b!2m2!1d75.80588449999999!2d30.8778632"
                   target="_blank"
+                  itemProp="hasMap"
                 >
                   Get Directions
+                </Typography>
+                <Typography
+                  onClick={handleCloseNavMenu}
+                  component="a"
+                  textAlign="center"
+                  href="tel:+91-161-462-5040"
+                  target="_blank"
+                  itemProp="telephone"
+                >
+                  Call now
                 </Typography>
               </MenuItem>
               {auth?.state?.isAuthenticated
@@ -128,8 +139,19 @@ export default function UserHeader() {
               component="a"
               href="https://www.google.com/maps/dir//Veerji+Departmental+Store/data=!4m8!4m7!1m0!1m5!1m1!1s0x391a8146052e6131:0xfd2081c026ecda8b!2m2!1d75.80588449999999!2d30.8778632"
               target="_blank"
+              itemProp="hasMap"
             >
               Get Directions
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              component="a"
+              href="tel:+91-161-462-5040"
+              target="_blank"
+              itemProp="telephone"
+            >
+              Call now
             </Button>
             {auth?.state?.isAuthenticated
               ? pages.map((page) => (

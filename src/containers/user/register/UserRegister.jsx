@@ -154,6 +154,15 @@ export default function UserRegister() {
         }));
         break;
       case "locality":
+        if (value.length === 0 || value === "") {
+          message = "Locality must be selected.";
+          errorVal = true;
+        }
+        setError((prev) => ({
+          ...prev,
+          error: errorVal,
+          [name]: message,
+        }));
         break;
       default:
         break;

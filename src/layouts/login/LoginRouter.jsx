@@ -2,6 +2,8 @@ import { Route, Redirect } from "react-router-dom";
 
 import LoginLayout from "./LoginLayout";
 import { useAuth } from "../../context/auth/AuthProvider";
+import { useLoader } from "../../context/loader/LoaderProvider";
+import UserBackdrop from "../../components/user/common/backdrop/UserBackdrop";
 
 export default function LoginRouter({
   heading,
@@ -9,6 +11,7 @@ export default function LoginRouter({
   ...rest
 }) {
   const auth = useAuth();
+  const loading = useLoader();
 
   if (auth === null) {
     return <></>;
@@ -16,6 +19,7 @@ export default function LoginRouter({
 
   return (
     <>
+      <UserBackdrop loading={loading?.loader} />
       {!auth?.state?.isAuthenticated ? (
         <Route
           {...rest}
