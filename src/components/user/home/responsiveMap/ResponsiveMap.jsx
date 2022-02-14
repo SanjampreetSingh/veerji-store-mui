@@ -36,8 +36,7 @@ export default function ResponsiveMap() {
           component="iframe"
           allowFullScreen=""
           loading="lazy"
-          className="embed-responsive-item"
-        ></CardMedia>
+        />
       </Container>
     </Box>
   );
