@@ -42,12 +42,12 @@ export default function UserLogin() {
       password: formState?.password,
     })
       .then((res) => {
+        loading?.stopLoader();
         if (res?.error) {
           setSubmitError({
             isError: true,
             errorMessage: JSON.stringify(res?.error?.response?.data),
           });
-          loading?.stopLoader();
         } else {
           localStorage.setItem("access_token", res?.data?.access);
           localStorage.setItem("refresh_token", res?.data?.refresh);
@@ -58,7 +58,6 @@ export default function UserLogin() {
             isError: false,
             errorMessage: "",
           });
-          loading?.stopLoader();
           auth.update();
           setButtonLoading(false);
           if (decoded?.type === 1) {

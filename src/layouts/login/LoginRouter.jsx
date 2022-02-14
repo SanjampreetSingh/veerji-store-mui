@@ -1,8 +1,8 @@
 import { Route, Redirect } from "react-router-dom";
 
-import LoginLayout from "./LoginLayout";
 import { useAuth } from "../../context/auth/AuthProvider";
 import { useLoader } from "../../context/loader/LoaderProvider";
+import LoginLayout from "./LoginLayout";
 import UserBackdrop from "../../components/user/common/backdrop/UserBackdrop";
 
 export default function LoginRouter({
