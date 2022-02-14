@@ -17,7 +17,10 @@ import { Link } from "react-router-dom";
 
 import { useAuth } from "../../../../context/auth/AuthProvider";
 
-const settings = ["Profile", "Dashboard", "Logout"];
+const settings = {
+  0: { title: "Profile", url: "/" },
+  1: { title: "Logout", url: "/logout" },
+};
 const pages = ["Menu", "Milk Subscriptions"];
 
 export default function UserHeader() {
@@ -165,9 +168,16 @@ export default function UserHeader() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                {Object.keys(settings).map((key, id) => (
+                  <MenuItem
+                    key={settings[id]?.title}
+                    component={Link}
+                    onClick={handleCloseUserMenu}
+                    to={settings[id]?.url}
+                  >
+                    <Typography textAlign="center">
+                      {settings[id]?.title}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>

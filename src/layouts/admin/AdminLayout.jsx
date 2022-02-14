@@ -20,6 +20,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
+import { Link as RLink } from "react-router-dom";
+
 import { mainListItems, secondaryListItems } from "./listItems";
 
 function Copyright(props) {
@@ -96,7 +98,10 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const mdTheme = createTheme();
-const settings = ["Profile", "Dashboard", "Logout"];
+const settings = {
+  0: { title: "Profile", url: "/" },
+  1: { title: "Logout", url: "/logout" },
+};
 
 export default function AdminLayout(props) {
   const { children } = props;
@@ -171,9 +176,16 @@ export default function AdminLayout(props) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                {Object.keys(settings).map((key, id) => (
+                  <MenuItem
+                    key={settings[id]?.title}
+                    component={RLink}
+                    onClick={handleCloseUserMenu}
+                    to={settings[id]?.url}
+                  >
+                    <Typography textAlign="center">
+                      {settings[id]?.title}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
