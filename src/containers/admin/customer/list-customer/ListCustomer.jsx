@@ -9,6 +9,9 @@ export default function ListCustomer() {
   const loading = useLoader();
 
   const [user, setUser] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchOptions, setSearchOptions] = useState("name");
   const [error, setError] = useState({
     isError: false,
     errorMessage: "",
@@ -46,5 +49,74 @@ export default function ListCustomer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <ListCustomerComponent user={user} error={error} />;
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const tableColumnProperty = [
+    { id: "name", label: "Name", minWidth: 100 },
+    {
+      id: "email",
+      label: "Email",
+      minWidth: 100,
+      format: (value) => (
+        <a target="_blank" href={"mailto:" + value} rel="noreferrer">
+          {value}
+        </a>
+      ),
+    },
+    {
+      id: "phone",
+      label: "Phone",
+      minWidth: 100,
+      format: (value) => (
+        <a target="_blank" href={"tel:+91" + value} rel="noreferrer">
+          {value}
+        </a>
+      ),
+    },
+    {
+      id: "house_number",
+      label: "House No.",
+      minWidth: 55,
+    },
+    {
+      id: "locality_name",
+      label: "Locality",
+      minWidth: 100,
+    },
+    {
+      id: "payment",
+      label: "Pending Payment",
+      minWidth: 55,
+    },
+    {
+      id: "edit",
+      label: "Action",
+      minWidth: 10,
+    },
+  ];
+
+  const handleSearchOptionsChange = (event) => {
+    setSearchOptions(event.target.value);
+  };
+
+  return (
+    <ListCustomerComponent
+      user={user}
+      page={page}
+      error={error}
+      rowsPerPage={rowsPerPage}
+      columns={tableColumnProperty}
+      searchOptions={searchOptions}
+      handleChangePage={handleChangePage}
+      handleChangeRowsPerPage={handleChangeRowsPerPage}
+      handleSearchOptionsChange={handleSearchOptionsChange}
+    />
+  );
 }

@@ -18,6 +18,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
@@ -30,13 +31,11 @@ const top100Films = [
 export default function ListCustomerComponent(props) {
   const {
     user,
-    page,
     columns,
+    page,
     rowsPerPage,
-    searchOptions,
     handleChangePage,
     handleChangeRowsPerPage,
-    handleSearchOptionsChange,
   } = props;
 
   const options = top100Films.map((option) => {
@@ -47,6 +46,11 @@ export default function ListCustomerComponent(props) {
     };
   });
 
+  const [age, setAge] = useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
   return (
     <>
       <Grid item xs={12}>
@@ -70,7 +74,7 @@ export default function ListCustomerComponent(props) {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={"Search with " + searchOptions}
+                label="Search with categories"
                 InputProps={{
                   ...params.InputProps,
                   type: "search",
@@ -84,11 +88,13 @@ export default function ListCustomerComponent(props) {
       <Grid item xs={12} md={2} lg={2}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
           <FormControl fullWidth size="small">
-            <InputLabel>Search with</InputLabel>
+            <InputLabel id="demo-simple-select-label">Search with</InputLabel>
             <Select
-              value={searchOptions}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
               label="Search with"
-              onChange={handleSearchOptionsChange}
+              onChange={handleChange}
             >
               <MenuItem value="name">Name</MenuItem>
               <MenuItem value="phone">Phone</MenuItem>

@@ -28,7 +28,7 @@ export default function AdminLayout(props) {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
       <CssBaseline />
 
       <AdminHeader
@@ -52,7 +52,7 @@ export default function AdminLayout(props) {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} sx={{mb:4}}>
             {children}
           </Grid>
 

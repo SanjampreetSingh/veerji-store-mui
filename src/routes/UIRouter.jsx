@@ -46,6 +46,11 @@ export default function UIRouter() {
         {/* Admin Routes */}
         <AdminRouter exact path="/admin" component={AdminDashboard} />
         <AdminRouter exact path="/admin/customer" component={ListCustomer} />
+        {/* <AdminRouter
+          exact
+          path="/admin/customer/:userId"
+          component={RetrieveCustomer}
+        /> */}
         <Route>
           <Redirect to="/" />
         </Route>
