@@ -195,7 +195,13 @@ export default function UserHeader() {
                     key={settings[id]?.title}
                     component={Link}
                     onClick={handleCloseUserMenu}
-                    to={settings[id]?.url}
+                    to={
+                      id === 0
+                        ? auth?.state?.authType === 1
+                          ? "/admin"
+                          : "/user"
+                        : settings[id]?.url
+                    }
                   >
                     <Typography textAlign="center">
                       {settings[id]?.title}
