@@ -3,11 +3,14 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import LoadingButton from "@mui/lab/LoadingButton";
-import FormHelperText from "@mui/material/FormHelperText";
+import InputAdornment from "@mui/material/InputAdornment";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import CallIcon from "@mui/icons-material/Call";
+import EmailIcon from "@mui/icons-material/Email";
+import HomeIcon from "@mui/icons-material/Home";
+import MapIcon from "@mui/icons-material/Map";
+import PasswordIcon from "@mui/icons-material/Password";
 
 import { Link } from "react-router-dom";
 
@@ -43,12 +46,21 @@ export default function UserRegisterComponent(props) {
         label="Name"
         name="name"
         autoFocus
-        placeholder="Happy Singh"
+        placeholder="Please enter name"
         autoComplete="name"
         onChange={handleChange}
         error={error?.error === true && error?.name !== "" ? true : false}
-        helperText={error?.error === true ? error?.name : ""}
+        helperText={
+          error?.error === true ? error?.name : "Please enter your name"
+        }
         value={formState?.name}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          ),
+        }}
       />
       <TextField
         type="email"
@@ -61,26 +73,42 @@ export default function UserRegisterComponent(props) {
         autoComplete="email"
         onChange={handleChange}
         error={error?.error === true && error?.email !== "" ? true : false}
-        helperText={error?.error === true ? error?.email : ""}
+        helperText={
+          error?.error === true ? error?.email : "Please enter your email"
+        }
         value={formState?.email}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <EmailIcon />
+            </InputAdornment>
+          ),
+        }}
       />
       <TextField
         type="tel"
         margin="normal"
         required
         fullWidth
-        label="Phone Number"
+        label="Contact"
         name="phone"
         placeholder="9999999999"
         autoComplete="tel-national"
-        inputProps={{
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <CallIcon />
+            </InputAdornment>
+          ),
           pattern: "[0-9]{10}",
           maxLength: "10",
           inputMode: "numeric",
         }}
         onChange={handleChange}
         error={error?.error === true && error?.phone !== "" ? true : false}
-        helperText={error?.error === true ? error?.phone : ""}
+        helperText={
+          error?.error === true ? error?.phone : "Please enter your contact"
+        }
         value={formState?.phone}
       />
       <TextField
@@ -92,9 +120,19 @@ export default function UserRegisterComponent(props) {
         autoComplete="new-password"
         type="password"
         onChange={handleChange}
+        placeholder="Please enter your password"
         error={error?.error === true && error?.password !== "" ? true : false}
-        helperText={error?.error === true ? error?.password : ""}
+        helperText={
+          error?.error === true ? error?.password : "Please enter your password"
+        }
         value={formState?.password}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <PasswordIcon />
+            </InputAdornment>
+          ),
+        }}
       />
       <TextField
         type="text"
@@ -104,44 +142,59 @@ export default function UserRegisterComponent(props) {
         label="House Number"
         name="house_number"
         placeholder="792"
-        inputProps={{
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <HomeIcon />
+            </InputAdornment>
+          ),
           maxLength: "7",
         }}
         onChange={handleChange}
         error={
           error?.error === true && error?.house_number !== "" ? true : false
         }
-        helperText={error?.error === true ? error?.house_number : ""}
+        helperText={
+          error?.error === true
+            ? error?.house_number
+            : "Please enter your house number"
+        }
         value={formState?.house_number}
       />
-      <FormControl
+      <TextField
+        select
         fullWidth
         sx={{ mt: 2 }}
         error={error?.error === true && error?.locality !== "" ? true : false}
+        labelId="locality"
+        name="locality"
+        label="Locality"
+        onChange={handleChange}
+        autoComplete="off"
+        required
+        value={formState?.locality}
+        helperText={
+          error?.error === true
+            ? error?.locality
+            : "Please select your locality"
+        }
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <MapIcon />
+            </InputAdornment>
+          ),
+        }}
       >
-        <InputLabel>Select Locality</InputLabel>
-        <Select
-          labelId="locality"
-          name="locality"
-          label="Select Locality"
-          onChange={handleChange}
-          autoComplete="off"
-          required
-          value={formState?.locality}
-        >
-          <MenuItem value="">
-            <em>Select Locality</em>
+        <MenuItem value="">
+          <em>Select Locality</em>
+        </MenuItem>
+        {locality?.map((val, idx) => (
+          <MenuItem key={idx} value={val?.id}>
+            {val?.name}
           </MenuItem>
-          {locality?.map((val, idx) => (
-            <MenuItem key={idx} value={val?.id}>
-              {val?.name}
-            </MenuItem>
-          ))}
-        </Select>
-        {error?.error === true ? (
-          <FormHelperText>{error?.locality}</FormHelperText>
-        ) : null}
-      </FormControl>
+        ))}
+      </TextField>
       <LoadingButton
         type="submit"
         fullWidth

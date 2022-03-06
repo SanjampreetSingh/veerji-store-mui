@@ -74,9 +74,8 @@ export default function EditCustomer() {
   );
 
   useEffect(() => {
-    if (editButton === true) {
-      loadLocalityData();
-    }
+    loadUserData();
+    loadLocalityData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editButton]);
 
@@ -183,7 +182,7 @@ export default function EditCustomer() {
 
   const handleUserFormChange = (e) => {
     const name = e?.target?.name;
-    const value = e?.target?.value?.trim();
+    const value = e?.target?.value;
     setUser((prev) => ({
       ...prev,
       [name]: value,

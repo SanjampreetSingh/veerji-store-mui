@@ -7,9 +7,18 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import { Link } from "react-router-dom";
 import DetailCustomerComponent from "./DetailCustomerComponent";
+import EditFormCustomerComponent from "./EditFormCustomerComponent";
 
 export default function EditCustomerComponent(props) {
-  const { user, editButton, setEditButton } = props;
+  const {
+    user,
+    editButton,
+    setEditButton,
+    locality,
+    handleUserFormChange,
+    handleSubmit,
+  } = props;
+
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb">
@@ -31,7 +40,7 @@ export default function EditCustomerComponent(props) {
             variant="h3"
             sx={{ mb: 2, position: "relative" }}
           >
-            {user?.name}
+            {!editButton ? user?.name : "Update customer details"}
             <IconButton
               label="Edit"
               variant="contained"
@@ -52,7 +61,17 @@ export default function EditCustomerComponent(props) {
           </Typography>
           <Grid container spacing={2} sx={{ px: 3 }}>
             <Grid item xs={12} sx={{ borderTop: "1px solid #dee2e6", mt: 1 }} />
-            {!editButton ? <DetailCustomerComponent user={user} /> : "h1"}
+            {!editButton ? (
+              <DetailCustomerComponent user={user} />
+            ) : (
+              <EditFormCustomerComponent
+                user={user}
+                locality={locality}
+                setEditButton={setEditButton}
+                handleUserFormChange={handleUserFormChange}
+                handleSubmit={handleSubmit}
+              />
+            )}
           </Grid>
         </Paper>
       </Grid>
