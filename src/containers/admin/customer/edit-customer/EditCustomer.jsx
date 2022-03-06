@@ -57,6 +57,7 @@ export default function EditCustomer() {
   const [product, setProduct] = useState([]);
   const [recurringProduct, setRecurringProduct] = useState([]);
   const [locality, setLocality] = useState([]);
+  const [editButton, setEditButton] = useState(false);
 
   useEffect(() => {
     loadUserData();
@@ -71,6 +72,13 @@ export default function EditCustomer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [recurringProduct]
   );
+
+  useEffect(() => {
+    if (editButton === true) {
+      loadLocalityData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editButton]);
 
   const loadUserData = () => {
     loading?.startLoader();
@@ -131,7 +139,8 @@ export default function EditCustomer() {
         if (res?.error) {
           setSubmitError(res.error);
         } else {
-          history.push("/admin/customer/details/" + userId);
+          setEditButton(false);
+          history.push("/admin/customer/" + userId);
         }
       })
       .catch((error) => {
@@ -196,6 +205,8 @@ export default function EditCustomer() {
       handleRecurringObj={handleRecurringObj}
       handleRecurringArray={handleRecurringArray}
       handleUserFormChange={handleUserFormChange}
+      editButton={editButton}
+      setEditButton={setEditButton}
     />
   );
 }

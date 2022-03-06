@@ -2,11 +2,14 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import IconButton from "@mui/material/IconButton";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import { Link } from "react-router-dom";
+import DetailCustomerComponent from "./DetailCustomerComponent";
 
 export default function EditCustomerComponent(props) {
-  const { user } = props;
+  const { user, editButton, setEditButton } = props;
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb">
@@ -23,57 +26,53 @@ export default function EditCustomerComponent(props) {
             flexDirection: "column",
           }}
         >
-          <Typography align="center" variant="h5" sx={{ mb: 2 }}>
+          <Typography
+            align="center"
+            variant="h3"
+            sx={{ mb: 2, position: "relative" }}
+          >
             {user?.name}
+            <IconButton
+              label="Edit"
+              variant="contained"
+              color="secondary"
+              aria-label="edit"
+              component="span"
+              size="small"
+              sx={{
+                right: 25,
+                top: 0,
+                border: "1px solid",
+                position: "absolute",
+              }}
+              onClick={() => setEditButton(!editButton)}
+            >
+              <EditRoundedIcon />
+            </IconButton>
           </Typography>
           <Grid container spacing={2} sx={{ px: 3 }}>
             <Grid item xs={12} sx={{ borderTop: "1px solid #dee2e6", mt: 1 }} />
-            <Grid item xs={6}>
-              <Typography variant="subtitle2">
-                Contact:{" "}
-                <a
-                  href={"tel:+91-" + user?.phone}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  +91-{user?.phone}
-                </a>
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="subtitle2">
-                Email:{" "}
-                <a
-                  href={"mailto:" + user?.email}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {user?.email}
-                </a>
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="subtitle2">
-                Address:{" "}
-                <a
-                  href={
-                    "http://maps.google.com/?q=:" +
-                    user?.house_number +
-                    " " +
-                    user?.locality_name
-                  }
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {user?.house_number + " " + user?.locality_name}
-                </a>
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="subtitle2">
-                Pending Payment: ₹{" " + user?.payment}
-              </Typography>
-            </Grid>
+            {!editButton ? <DetailCustomerComponent user={user} /> : "h1"}
+          </Grid>
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper
+          sx={{
+            p: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography
+            align="center"
+            variant="h5"
+            sx={{ mb: 2, position: "relative" }}
+          >
+            Daily Supplies
+          </Typography>
+          <Grid container spacing={2} sx={{ px: 3 }}>
+            <Grid item xs={12} sx={{ borderTop: "1px solid #dee2e6", mt: 1 }} />
           </Grid>
         </Paper>
       </Grid>
