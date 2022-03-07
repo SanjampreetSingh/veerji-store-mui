@@ -24,6 +24,7 @@ export default function EditFormCustomerComponent(props) {
           placeholder="Please enter customer name"
           fullWidth
           label="Customer name"
+          size="small"
           value={user?.name}
           onChange={handleUserFormChange}
           aria-describedby="customer-name"
@@ -47,6 +48,7 @@ export default function EditFormCustomerComponent(props) {
           name="phone"
           aria-describedby="customer-contact"
           placeholder="Please enter customer contact"
+          size="small"
           value={user?.phone}
           onChange={handleUserFormChange}
           helperText="Please enter customer contact"
@@ -70,6 +72,7 @@ export default function EditFormCustomerComponent(props) {
           helperText="Please enter customer email"
           type="email"
           fullWidth
+          size="small"
           name="email"
           aria-describedby="customer-email"
           placeholder="Please enter customer email"
@@ -91,6 +94,7 @@ export default function EditFormCustomerComponent(props) {
           label="Customer house number"
           helperText="Please enter customer house number"
           placeholder="Please enter customer house number"
+          size="small"
           name="house_number"
           value={user?.house_number}
           aria-describedby="customer-house-number"
@@ -111,6 +115,7 @@ export default function EditFormCustomerComponent(props) {
           aria-label="Select Locality"
           fullWidth
           name="locality"
+          size="small"
           aria-labelledby="locality"
           autoComplete="off"
           value={user?.locality}
@@ -124,6 +129,9 @@ export default function EditFormCustomerComponent(props) {
             ),
           }}
         >
+          <MenuItem value="">
+            <em>Select Locality</em>
+          </MenuItem>
           {locality.map((val, idx) => (
             <MenuItem key={idx} value={val?.id}>
               {val?.name}

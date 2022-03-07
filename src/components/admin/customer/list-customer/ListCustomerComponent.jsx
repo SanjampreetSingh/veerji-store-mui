@@ -141,7 +141,11 @@ export default function ListCustomerComponent(props) {
                                   color="secondary"
                                   aria-label="edit"
                                   component={Link}
-                                  to={"/admin/customer/" + row?.id?.toString()}
+                                    to={"/admin/customer/" + row?.id?.toString()}
+                                    size="small"
+                                  sx={{
+                                    border: "1px solid",
+                                  }}
                                 >
                                   <EditRoundedIcon />
                                 </IconButton>
