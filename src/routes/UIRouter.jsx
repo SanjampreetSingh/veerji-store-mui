@@ -20,6 +20,8 @@ import UserLogout from "../containers/user/logout/UserLogout";
 import ListCustomer from "../containers/admin/customer/list-customer/ListCustomer";
 import EditCustomer from "../containers/admin/customer/edit-customer/EditCustomer";
 import ListLocality from "../containers/admin/locality/list-locality/ListLocality";
+import AddLocality from "../containers/admin/locality/add-locality/AddLocality";
+import EditLocality from "../containers/admin/locality/edit-locality/EditLocality";
 
 function AdminDashboard() {
   return <h1>Admin</h1>;
@@ -54,6 +56,12 @@ export default function UIRouter() {
           component={EditCustomer}
         />
         <AdminRouter exact path="/admin/locality" component={ListLocality} />
+        <AdminRouter exact path="/admin/locality/add" component={AddLocality} />
+        <AdminRouter
+          exact
+          path="/admin/locality/:id"
+          component={EditLocality}
+        />
         <Route>
           <Redirect to="/" />
         </Route>

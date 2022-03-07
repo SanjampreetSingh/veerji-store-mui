@@ -1,65 +1,97 @@
-import { useState, useEffect } from "react"
-import { useHistory } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-import FormLocalityComponent from "../../../../components/admin/locality/form-locality/FormLocalityComponent"
-import { editLocality, getLocality } from "../../../../services/services"
+import FormLocalityComponent from "../../../../components/admin/locality/form-locality/FormLocalityComponent";
+import { editLocality, getLocality } from "../../../../services/services";
+import { useLoader } from "../../../../context/loader/LoaderProvider";
 
 export default function EditLocality() {
-  let id = window.location.href.split("/").pop()
-  const history = useHistory()
+  const loading = useLoader();
+  const history = useHistory();
 
+  let id = window.location.href.split("/").pop();
   const formObj = Object.freeze({
     name: "",
-  })
+  });
 
-  const errorObj = Object.freeze({
-    error: false,
-    name: "",
-  })
+  const [formState, setFormState] = useState(formObj);
+  const [submitError, setSubmitError] = useState("");
+  const [response, setResponse] = useState("");
+  const [error, setError] = useState({
+    isError: false,
+    errorMessage: "",
+  });
 
-  const [error, setError] = useState(errorObj)
-  const [formState, setFormState] = useState(formObj)
-  const [submitError, setSubmitError] = useState("")
-  const [response, setResponse] = useState("")
-
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loading?.startLoader();
     editLocality(id, { name: formState?.name })
-      .then(res => {
+      .then((res) => {
+        loading?.stopLoader();
         if (res?.error) {
-          setSubmitError(res.error)
+          setSubmitError(res.error);
         } else {
-          setResponse(res.data)
-          history.push("/locality")
+          setResponse(res.data);
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
+          history.push("/admin/locality");
         }
       })
-      .catch(error => setError(error))
-  }
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  };
 
-  const handleChange = e => {
-    const name = e.target?.name
-    const value = e?.target?.value?.trim()
-    setFormState(prev => ({
+  const handleChange = (e) => {
+    const name = e.target?.name;
+    const value = e?.target?.value?.trim();
+    setFormState((prev) => ({
       ...prev,
       [name]: value,
-    }))
+    }));
     // updateErrorState(name, value)
-  }
+  };
 
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadData = () => {
+    loading?.startLoader();
     getLocality(id)
-      .then(res =>
-        setFormState(prev => ({
-          ...prev,
-          name: res?.data?.name,
-        }))
-      )
-      .catch(error => setError(error))
-  }
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
+        } else {
+          setFormState((prev) => ({
+            ...prev,
+            name: res?.data?.name,
+          }));
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  };
 
   return (
     <FormLocalityComponent
@@ -71,5 +103,5 @@ export default function EditLocality() {
       handleChange={handleChange}
       updateBool={true}
     />
-  )
+  );
 }
