@@ -1,31 +1,46 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import FormLocalityComponent from "../../../../components/admin/locality/form-locality/FormLocalityComponent";
-import { editLocality, getLocality } from "../../../../services/services";
+import {
+  editSale,
+  getSale,
+  getAllListProducts,
+  getAllListUsers,
+} from "../../../../services/services";
 import { useLoader } from "../../../../context/loader/LoaderProvider";
+import FormOrderComponent from "../../../../components/admin/order/form-order/FormOrderComponent";
 
-export default function EditLocality() {
+export default function EditOrder() {
   const loading = useLoader();
   const history = useHistory();
 
   let id = window.location.href.split("/").pop();
   const formObj = Object.freeze({
-    name: "",
+    user: "",
+    product: "",
+    quantity: "",
   });
 
   const [formState, setFormState] = useState(formObj);
   const [submitError, setSubmitError] = useState("");
   const [response, setResponse] = useState("");
+  const [product, setProduct] = useState([]);
+  const [user, setUser] = useState([]);
   const [error, setError] = useState({
-    isError: false,
-    errorMessage: "",
+    error: false,
+    user: "",
+    product: "",
+    quantity: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     loading?.startLoader();
-    editLocality(id, { name: formState?.name })
+    editSale(id, {
+      user: formState?.user,
+      product: formState?.product,
+      quantity: formState?.quantity,
+    })
       .then((res) => {
         loading?.stopLoader();
         if (res?.error) {
@@ -36,7 +51,7 @@ export default function EditLocality() {
             isError: false,
             errorMessage: "",
           });
-          history.push("/admin/locality");
+          history.push("/admin/order");
         }
       })
       .catch((error) => {
@@ -48,9 +63,7 @@ export default function EditLocality() {
       });
   };
 
-  const handleChange = (e) => {
-    const name = e.target?.name;
-    const value = e?.target?.value?.trim();
+  const handleChange = (name, value) => {
     setFormState((prev) => ({
       ...prev,
       [name]: value,
@@ -58,9 +71,42 @@ export default function EditLocality() {
     // updateErrorState(name, value)
   };
 
+  const getAllProducts = () => {
+    loading?.startLoader();
+    getAllListProducts()
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError(res.error);
+        } else {
+          setProduct(res?.data);
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError(error);
+      });
+  };
+
+  const getAllUsers = () => {
+    loading?.startLoader();
+    getAllListUsers()
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError(res.error);
+        } else {
+          setUser(res?.data);
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError(error);
+      });
+  };
   const loadData = () => {
     loading?.startLoader();
-    getLocality(id)
+    getSale(id)
       .then((res) => {
         loading?.stopLoader();
         if (res?.error) {
@@ -71,7 +117,9 @@ export default function EditLocality() {
         } else {
           setFormState((prev) => ({
             ...prev,
-            name: res?.data?.name,
+            user: res?.data?.user,
+            product: res?.data?.product,
+            quantity: res?.data?.quantity,
           }));
           setError({
             isError: false,
@@ -89,16 +137,20 @@ export default function EditLocality() {
   };
 
   useEffect(() => {
+    getAllProducts();
+    getAllUsers();
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <FormLocalityComponent
-      response={response}
+    <FormOrderComponent
+      user={user}
       error={error}
-      submitError={submitError}
+      product={product}
+      response={response}
       formState={formState}
+      submitError={submitError}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       updateBool={true}

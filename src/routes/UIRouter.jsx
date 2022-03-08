@@ -23,6 +23,8 @@ import ListLocality from "../containers/admin/locality/list-locality/ListLocalit
 import AddLocality from "../containers/admin/locality/add-locality/AddLocality";
 import EditLocality from "../containers/admin/locality/edit-locality/EditLocality";
 import ListOrder from "../containers/admin/order/list-order/ListOrder";
+import AddOrder from "../containers/admin/order/add-order/AddOrder";
+import EditOrder from "../containers/admin/order/edit-order/EditOrder";
 
 function AdminDashboard() {
   return <h1>Admin</h1>;
@@ -64,8 +66,8 @@ export default function UIRouter() {
           component={EditLocality}
         />
         <AdminRouter exact path="/admin/order" component={ListOrder} />
-        <AdminRouter exact path="/admin/order/add" component={AddLocality} />
-        <AdminRouter exact path="/admin/order/:id" component={EditLocality} />
+        <AdminRouter exact path="/admin/order/add" component={AddOrder} />
+        <AdminRouter exact path="/admin/order/:id" component={EditOrder} />
         <Route>
           <Redirect to="/" />
         </Route>

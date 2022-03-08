@@ -32,27 +32,29 @@ export default function FormLocalityComponent(props) {
       <Grid item xs={12}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
           <Grid container spacing={2} sx={{ px: 3, mt: 1 }}>
-            <TextField
-              required
-              autoFocus
-              fullWidth
-              name="name"
-              size="small"
-              label="Locality"
-              autoComplete="off"
-              aria-describedby="locality"
-              onChange={handleChange}
-              value={formState?.name}
-              placeholder="Please enter locality"
-              helperText="Please enter locality"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <MapIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <Grid item xs={12}>
+              <TextField
+                required
+                autoFocus
+                fullWidth
+                name="name"
+                size="small"
+                label="Locality"
+                autoComplete="off"
+                aria-describedby="locality"
+                onChange={handleChange}
+                value={formState?.name}
+                placeholder="Please enter locality"
+                helperText="Please enter locality"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <MapIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
             <Grid item>
               <Button variant="contained" onClick={handleSubmit}>
                 Submit
