@@ -28,7 +28,7 @@ export default function ListLocalityComponent(props) {
     <>
       <Grid item xs={12}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-          <Typography align="center" variant="h5">
+          <Typography align="center" variant="h3">
             Locality List
           </Typography>
         </Paper>
