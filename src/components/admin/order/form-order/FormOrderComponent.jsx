@@ -2,32 +2,47 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import InputAdornment from "@mui/material/InputAdornment";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import KitchenIcon from "@mui/icons-material/Kitchen";
 import PersonIcon from "@mui/icons-material/Person";
 import NumbersIcon from "@mui/icons-material/Numbers";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { Link } from "react-router-dom";
 
 export default function FormOrderComponent(props) {
-  const {
-    user,
-    error,
-    product,
-    response,
-    formState,
-    updateBool,
-    submitError,
-    handleSubmit,
-    handleChange,
-  } = props;
+  const { user, product, formState, updateBool, handleSubmit, handleChange } =
+    props;
   return (
     <>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link to="/admin">Dashboard</Link>
+        <Link to="/admin/order">Order</Link>
+        <Typography color="text.primary">Edit Order</Typography>
+      </Breadcrumbs>
+
       <Grid item xs={12}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-          <Typography align="center" variant="h5">
+          <Typography
+            align="center"
+            variant="h3"
+            sx={{ mb: 2, position: "relative" }}
+          >
+            <Button
+              startIcon={<ArrowBackIosNewIcon />}
+              component={Link}
+              to="/admin/order"
+              sx={{
+                top: 0,
+                left: 25,
+                position: "absolute",
+              }}
+            >
+              Go Back
+            </Button>
             {updateBool ? "Update order" : "Add Order"}
           </Typography>
         </Paper>
