@@ -97,6 +97,8 @@ export default function UserHeader() {
                 >
                   Get Directions
                 </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
                 <Typography
                   onClick={handleCloseNavMenu}
                   component="a"
