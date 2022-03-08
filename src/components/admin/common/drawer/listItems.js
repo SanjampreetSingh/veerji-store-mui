@@ -37,7 +37,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Localities" />
     </ListItemButton>
-    <ListItemButton component={Link} to="/admin">
+    <ListItemButton component={Link} to="/admin/actions">
       <ListItemIcon>
         <KeyboardCommandKeyIcon />
       </ListItemIcon>
