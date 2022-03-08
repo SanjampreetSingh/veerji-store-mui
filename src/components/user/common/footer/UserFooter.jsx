@@ -20,18 +20,14 @@ export default function UserFooter() {
         <Grid item sx={{ display: { xs: "none", md: "block" } }} md={4}>
           <Typography variant="h6" color="text.secondary" align="center">
             {"© " + new Date().getFullYear()} &nbsp;
-            <Link
-              color="inherit"
-              href="https://veerji.store/"
-              underline="hover"
-            >
+            <Link color="inherit" href="/" underline="hover">
               Veerji Departmental Store, Ldh
             </Link>
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ display: { xs: "12", md: "none" } }}>
           <Typography align="center">
-            <Link href="https://veerji.store/">
+            <Link href="/">
               <ShoppingBasketIcon />
             </Link>
           </Typography>

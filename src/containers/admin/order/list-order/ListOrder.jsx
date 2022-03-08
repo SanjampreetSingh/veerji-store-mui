@@ -2,39 +2,76 @@ import { useEffect, useState } from "react";
 
 import { deleteSale, getAllSale } from "../../../../services/services";
 import ListOrderComponent from "../../../../components/admin/order/list-order/ListOrderComponent";
+import { useLoader } from "../../../../context/loader/LoaderProvider";
 
 export default function ListOrder() {
-  const [error, setError] = useState(false);
+  const loading = useLoader();
+
   const [sale, setSale] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [error, setError] = useState({
+    isError: false,
+    errorMessage: "",
+  });
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = () => {
+  const loadOrders = () => {
+    loading?.startLoader();
     getAllSale()
       .then((res) => {
+        loading?.stopLoader();
         if (res?.error) {
-          setError(res.error);
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
         } else {
           setSale(res?.data);
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
         }
       })
-      .catch((error) => setError(error));
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
   };
 
-  const deleteData = (id) => {
+  useEffect(() => {
+    loadOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const deleteOrder = (id) => {
+    loading?.startLoader();
     deleteSale(id)
       .then((res) => {
+        loading?.stopLoader();
         if (res?.error) {
-          setError(res.error);
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
         } else {
-          loadData();
+          loadOrders();
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
         }
       })
-      .catch((error) => setError(error));
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
   };
 
   const dateFormatter = (value) => {
@@ -89,7 +126,7 @@ export default function ListOrder() {
       order={sale}
       error={error}
       columns={columns}
-      deleteData={deleteData}
+      deleteOrder={deleteOrder}
       rowsPerPage={rowsPerPage}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}

@@ -11,6 +11,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { Link } from "react-router-dom";
 
@@ -84,20 +85,35 @@ export default function ListOrderComponent(props) {
                               column?.id === "user_phone" ? (
                                 column.format(value)
                               ) : column.id === "edit" ? (
-                                <IconButton
-                                  label="Edit"
-                                  variant="contained"
-                                  color="secondary"
-                                  aria-label="edit"
-                                  component={Link}
-                                  to={"/admin/order/" + row?.id?.toString()}
-                                  size="small"
-                                  sx={{
-                                    border: "1px solid",
-                                  }}
-                                >
-                                  <EditRoundedIcon />
-                                </IconButton>
+                                <>
+                                  <IconButton
+                                    label="Edit"
+                                    variant="contained"
+                                    color="secondary"
+                                    aria-label="edit"
+                                    component={Link}
+                                    to={"/admin/order/" + row?.id?.toString()}
+                                    size="small"
+                                    sx={{
+                                      border: "1px solid",
+                                    }}
+                                  >
+                                    <EditRoundedIcon />
+                                  </IconButton>
+                                  &nbsp;
+                                  <IconButton
+                                    label="Delete"
+                                    variant="contained"
+                                    color="error"
+                                    aria-label="delete"
+                                    size="small"
+                                    sx={{
+                                      border: "1px solid",
+                                    }}
+                                  >
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </>
                               ) : (
                                 value
                               )}
