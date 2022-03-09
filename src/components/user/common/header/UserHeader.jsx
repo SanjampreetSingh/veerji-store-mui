@@ -21,7 +21,10 @@ const settings = {
   0: { title: "Profile", url: "/" },
   1: { title: "Logout", url: "/logout" },
 };
-const pages = ["Menu", "Milk Subscriptions"];
+const pages = {
+  0: { title: "Milk Subscriptions", url: "/milk-subscription" },
+  1: { title: "Restaurants Menu", url: "/restaurants-menu" },
+};
 
 export default function UserHeader() {
   const auth = useAuth();
@@ -111,10 +114,12 @@ export default function UserHeader() {
                 </Typography>
               </MenuItem>
               {auth?.state?.isAuthenticated
-                ? pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Link to={"/" + page.toLowerCase().replace(/\s/g, "")}>
-                        <Typography textAlign="center">{page}</Typography>
+                ? Object.keys(pages).map((key, id) => (
+                    <MenuItem key={id} onClick={handleCloseNavMenu}>
+                      <Link to={pages[id]?.url}>
+                        <Typography textAlign="center">
+                          {pages[id]?.title}
+                        </Typography>
                       </Link>
                     </MenuItem>
                   ))
@@ -156,15 +161,15 @@ export default function UserHeader() {
               Call now
             </Button>
             {auth?.state?.isAuthenticated
-              ? pages.map((page) => (
+              ? Object.keys(pages).map((key, id) => (
                   <Button
-                    key={page}
+                    key={id}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white", display: "block" }}
                     component={Link}
-                    to={"/" + page.toLowerCase().replace(/\s/g, "")}
+                    to={pages[id]?.url}
                   >
-                    {page}
+                    {pages[id]?.title}
                   </Button>
                 ))
               : null}

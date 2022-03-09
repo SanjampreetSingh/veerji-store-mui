@@ -9,6 +9,7 @@ import {
 import HomeRouter from "../layouts/home/HomeRouter";
 import LoginRouter from "../layouts/login/LoginRouter";
 import AdminRouter from "../layouts/admin/AdminRouter";
+import UserRouter from "../layouts/user/UserRouter";
 
 // Home Component
 import HomeComponent from "../components/user/home/HomeComponent";
@@ -28,6 +29,10 @@ import EditOrder from "../containers/admin/order/edit-order/EditOrder";
 
 function AdminDashboard() {
   return <h1>Admin</h1>;
+}
+
+function UserDashboard() {
+  return <h1>User</h1>;
 }
 
 export default function UIRouter() {
@@ -68,6 +73,9 @@ export default function UIRouter() {
         <AdminRouter exact path="/admin/order" component={ListOrder} />
         <AdminRouter exact path="/admin/order/add" component={AddOrder} />
         <AdminRouter exact path="/admin/order/:id" component={EditOrder} />
+        {/* User Routes */}
+        <UserRouter exact path="/milk-subscription" component={UserDashboard} />
+        <UserRouter exact path="/restaurants-menu" component={UserDashboard} />
         <Route>
           <Redirect to="/" />
         </Route>

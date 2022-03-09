@@ -42,8 +42,16 @@ export default function HomeHeroes() {
       <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
         {auth?.state?.isAuthenticated ? (
           <>
-            <Button variant="contained">Milk Subscriptions</Button>
-            <Button variant="outlined">Menu</Button>
+            <Button
+              variant="contained"
+              component={Link}
+              to="/milk-subscription"
+            >
+              Milk Subscriptions
+            </Button>
+            <Button variant="outlined" component={Link} to="/restaurants-menu">
+              Restaurants Menu
+            </Button>
           </>
         ) : (
           <>
