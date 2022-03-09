@@ -207,6 +207,7 @@ export default function UserRegister() {
 
   useEffect(() => {
     loadLocality();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
