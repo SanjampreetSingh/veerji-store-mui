@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
+import UserRegisterComponent from "../../../components/user/register/UserRegisterComponent";
 import { getAllLocalities, addUser } from "../../../services/services";
 import { useAuth } from "../../../context/auth/AuthProvider";
-import UserRegisterComponent from "../../../components/user/register/UserRegisterComponent";
+import { useLoader } from "../../../context/loader/LoaderProvider";
 
 export default function UserRegister() {
+  const loading = useLoader();
   const history = useHistory();
   const auth = useAuth();
 
@@ -180,16 +182,31 @@ export default function UserRegister() {
     updateErrorState(name, value);
   };
 
-  useEffect(() => {
+  const loadLocality = () => {
+    loading?.startLoader();
     getAllLocalities()
       .then((res) => {
+        loading?.stopLoader();
         if (res?.error) {
-          setError(res.error);
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
         } else {
           setLocality(res?.data);
         }
       })
-      .catch((error) => setError(error));
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  };
+
+  useEffect(() => {
+    loadLocality();
   }, []);
 
   return (

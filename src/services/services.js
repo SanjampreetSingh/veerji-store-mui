@@ -33,6 +33,7 @@ export const addProduct = (data) => ApiCall(action.POST, "product/", data);
 export const getAllUser = () => ApiCall(action.GET, "user/");
 export const getAllListUsers = () => ApiCall(action.GET, "list/user/");
 export const getUser = (userId) => ApiCall(action.GET, `user/${userId}/`);
+export const getUserDetails = () => ApiCall(action.GET, "get/user/");
 export const addUser = (data) => ApiCall(action.POST, "user/", data);
 export const updateUser = (userId, data) =>
   ApiCall(action.PATCH, `user/${userId}/`, data);

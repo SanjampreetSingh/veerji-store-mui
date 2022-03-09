@@ -2,7 +2,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import PersonIcon from "@mui/icons-material/Person";
 
-export default function UserHeroes() {
+export default function UserHeroes(props) {
+  const { user } = props;
+
   return (
     <Box
       sx={{
@@ -25,7 +27,7 @@ export default function UserHeroes() {
         />
       </Typography>
       <Typography
-        component="h1"
+        component="h4"
         variant="h2"
         align="center"
         color="text.primary"
@@ -34,8 +36,7 @@ export default function UserHeroes() {
         Veerji Departmental Store
       </Typography>
       <Typography variant="h5" align="center" color="text.secondary" paragraph>
-        Welcome to our Online initiative, here you can pay your milk
-        subscription.
+        Hi <em>{user?.name}</em>, now pay for your milk subscription online.
       </Typography>
     </Box>
   );
