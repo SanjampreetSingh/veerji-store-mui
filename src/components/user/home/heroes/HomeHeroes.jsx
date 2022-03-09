@@ -40,7 +40,7 @@ export default function HomeHeroes() {
         subscription online and order from Veerji Food Court too.
       </Typography>
       <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
-        {auth?.state?.isAuthenticated ? (
+        {auth?.state?.isAuthenticated && auth?.state?.authType === 2 ? (
           <>
             <Button
               variant="contained"
@@ -53,6 +53,10 @@ export default function HomeHeroes() {
               Restaurants Menu
             </Button>
           </>
+        ) : auth?.state?.isAuthenticated && auth?.state?.authType === 1 ? (
+          <Button variant="contained" component={Link} to="/admin">
+            Admin Dashboard
+          </Button>
         ) : (
           <>
             <Button variant="contained" component={Link} to="/login">

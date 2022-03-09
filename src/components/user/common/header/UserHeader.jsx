@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import PersonIcon from "@mui/icons-material/Person";
 
 import { Link } from "react-router-dom";
 
@@ -178,7 +179,9 @@ export default function UserHeader() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar sx={{ bgcolor: "#fff" }}>
+                    <PersonIcon color="primary" fontSize="inherit" />
+                  </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
