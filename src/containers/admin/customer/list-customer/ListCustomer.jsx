@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 
-import { getAllUser } from "../../../../services/services";
+import {
+  getAllUser,
+  searchUser,
+  getAllLocalities,
+  filterUserByLocality,
+} from "../../../../services/services";
 import { useLoader } from "../../../../context/loader/LoaderProvider";
 import ListCustomerComponent from "../../../../components/admin/customer/list-customer/ListCustomerComponent";
 
@@ -10,8 +15,10 @@ export default function ListCustomer() {
 
   const [page, setPage] = useState(0);
   const [user, setUser] = useState([]);
+  const [locality, setLocality] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [searchOptions, setSearchOptions] = useState("name");
+  const [filterOption, setFilterOption] = useState("");
+  const [search, setSearch] = useState("");
   const [error, setError] = useState({
     isError: false,
     errorMessage: "",
@@ -44,10 +51,84 @@ export default function ListCustomer() {
       });
   }
 
+  function loadSearchData(search_key) {
+    loading?.startLoader();
+    searchUser(search_key)
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
+        } else {
+          setUser(res?.data);
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  }
+
+  function loadUserByLocalityFilter(locality_id) {
+    loading?.startLoader();
+    filterUserByLocality(locality_id)
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
+        } else {
+          setUser(res?.data);
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  }
+
   useEffect(() => {
-    loadData();
+    if (search === "") {
+      loadData();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [search]);
+
+  const handleSearch = () => {
+    if (search === "") {
+      loadData();
+    } else {
+      loadSearchData(search);
+    }
+  };
+
+  useEffect(() => {
+    if (filterOption === "") {
+      loadData();
+    } else {
+      loadUserByLocalityFilter(filterOption);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterOption]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -102,21 +183,53 @@ export default function ListCustomer() {
     },
   ];
 
-  const handleSearchOptionsChange = (event) => {
-    setSearchOptions(event.target.value);
+  const handleFilterOptionsChange = (event) => {
+    setFilterOption(event.target.value);
   };
+
+  const loadLocality = () => {
+    loading?.startLoader();
+    getAllLocalities()
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
+        } else {
+          setLocality(res?.data);
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  };
+
+  useEffect(() => {
+    loadLocality();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ListCustomerComponent
       user={user}
       page={page}
       error={error}
+      search={search}
+      locality={locality}
       rowsPerPage={rowsPerPage}
+      filterOption={filterOption}
       columns={tableColumnProperty}
-      searchOptions={searchOptions}
+      setSearch={setSearch}
+      handleSearch={handleSearch}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
-      handleSearchOptionsChange={handleSearchOptionsChange}
+      handleFilterOptionsChange={handleFilterOptionsChange}
     />
   );
 }

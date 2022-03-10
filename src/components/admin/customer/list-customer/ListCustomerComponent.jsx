@@ -8,44 +8,32 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import InputBase from "@mui/material/InputBase";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import MapIcon from "@mui/icons-material/Map";
+import SearchIcon from "@mui/icons-material/Search";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import { Link } from "react-router-dom";
-
-const top100Films = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1974 },
-  { title: "The Dark Knight", year: 2008 },
-  { title: "12 Angry Men", year: 1957 },
-];
 
 export default function ListCustomerComponent(props) {
   const {
     user,
     page,
+    search,
     columns,
+    locality,
+    setSearch,
     rowsPerPage,
-    searchOptions,
+    filterOption,
+    handleSearch,
     handleChangePage,
     handleChangeRowsPerPage,
-    handleSearchOptionsChange,
+    handleFilterOptionsChange,
   } = props;
-
-  const options = top100Films.map((option) => {
-    const firstLetter = option.title[0].toUpperCase();
-    return {
-      firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
-      ...option,
-    };
-  });
 
   return (
     <>
@@ -56,46 +44,74 @@ export default function ListCustomerComponent(props) {
           </Typography>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={10} lg={10}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-          <Autocomplete
-            options={options.sort(
-              (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-            )}
-            freeSolo
-            disableClearable
-            size="small"
-            groupBy={(option) => option.firstLetter}
-            getOptionLabel={(option) => option.title}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={"Search with " + searchOptions}
-                InputProps={{
-                  ...params.InputProps,
-                  type: "search",
-                }}
-              />
-            )}
+      <Grid item xs={12} md={6}>
+        <Paper
+          component="form"
+          sx={{
+            p: "4px",
+            display: "flex",
+            alignItems: "center",
+          }}
+          variant="outlined"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onBlur={(e) => {
+              e.preventDefault();
+            }}
+            placeholder="Search with name or email or phone or house number"
+            inputProps={{
+              "aria-label":
+                "Search with name or email or phone or house number",
+            }}
+            type="search"
           />
+          <IconButton
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={handleSearch}
+          >
+            <SearchIcon />
+          </IconButton>
         </Paper>
       </Grid>
 
-      <Grid item xs={12} md={2} lg={2}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-          <FormControl fullWidth size="small">
-            <InputLabel>Search with</InputLabel>
-            <Select
-              value={searchOptions}
-              label="Search with"
-              onChange={handleSearchOptionsChange}
-            >
-              <MenuItem value="name">Name</MenuItem>
-              <MenuItem value="phone">Phone</MenuItem>
-              <MenuItem value="email">Email</MenuItem>
-              <MenuItem value="locality">Locality</MenuItem>
-            </Select>
-          </FormControl>
+      <Grid item xs={12} md={6}>
+        <Paper sx={{ p: "6.3px", display: "flex", flexDirection: "column" }}>
+          <TextField
+            select
+            fullWidth
+            size="small"
+            value={filterOption}
+            label="Filter by Locality"
+            aria-label="Filter by Locality"
+            aria-labelledby="Filter by Locality"
+            onChange={handleFilterOptionsChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MapIcon />
+                </InputAdornment>
+              ),
+            }}
+          >
+            <MenuItem value="">
+              <em>Select Locality</em>
+            </MenuItem>
+            {locality.map((val, id) => (
+              <MenuItem key={id} value={val?.id}>
+                {val?.name}
+              </MenuItem>
+            ))}
+          </TextField>
         </Paper>
       </Grid>
 
@@ -141,8 +157,8 @@ export default function ListCustomerComponent(props) {
                                   color="secondary"
                                   aria-label="edit"
                                   component={Link}
-                                    to={"/admin/customer/" + row?.id?.toString()}
-                                    size="small"
+                                  to={"/admin/customer/" + row?.id?.toString()}
+                                  size="small"
                                   sx={{
                                     border: "1px solid",
                                   }}
