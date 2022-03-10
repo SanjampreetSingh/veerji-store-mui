@@ -8,6 +8,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MapIcon from "@mui/icons-material/Map";
 import KeyboardCommandKeyIcon from "@mui/icons-material/KeyboardCommandKey";
+import KitchenIcon from "@mui/icons-material/Kitchen";
 
 import { Link } from "react-router-dom";
 
@@ -30,6 +31,12 @@ export const mainListItems = (
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Customers" />
+    </ListItemButton>
+    <ListItemButton component={Link} to="/admin/product">
+      <ListItemIcon>
+        <KitchenIcon />
+      </ListItemIcon>
+      <ListItemText primary="Products" />
     </ListItemButton>
     <ListItemButton component={Link} to="/admin/locality">
       <ListItemIcon>
