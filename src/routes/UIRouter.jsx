@@ -30,6 +30,9 @@ import EditOrder from "../containers/admin/order/edit-order/EditOrder";
 import ListProduct from "../containers/admin/product/list-product/ListProduct";
 import AddProduct from "../containers/admin/product/add-product/AddProduct";
 import EditProduct from "../containers/admin/product/edit-product/EditProduct";
+import ListCategory from "../containers/admin/category/list-category/ListCategory";
+import AddCategory from "../containers/admin/category/add-category/AddCategory";
+import EditCategory from "../containers/admin/category/edit-category/EditCategory";
 
 function AdminDashboard() {
   return <h1>Admin</h1>;
@@ -80,7 +83,14 @@ export default function UIRouter() {
         <AdminRouter exact path="/admin/product" component={ListProduct} />
         <AdminRouter exact path="/admin/product/add" component={AddProduct} />
         <AdminRouter exact path="/admin/product/:id" component={EditProduct} />
-        {/* User Routes */}
+        <AdminRouter exact path="/admin/category" component={ListCategory} />
+        <AdminRouter exact path="/admin/category/add" component={AddCategory} />
+        <AdminRouter
+          exact
+          path="/admin/category/:id"
+          component={EditCategory}
+        />
+        {/* User Routes */}EditCategory
         <UserRouter
           exact
           path="/milk-subscription"

@@ -9,7 +9,7 @@ import {
 import { useLoader } from "../../../../context/loader/LoaderProvider";
 import FormProductComponent from "../../../../components/admin/product/form-product/FormProductComponent";
 
-export default function EditOrder() {
+export default function EditProduct() {
   const loading = useLoader();
   const history = useHistory();
 
