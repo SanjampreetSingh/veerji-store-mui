@@ -104,6 +104,10 @@ export default function MilkSubscription() {
       label: "Quantity",
     },
     {
+      id: "product_price",
+      label: "Price Per Unit (₹)",
+    },
+    {
       id: "created",
       label: "Buy Date",
       format: (value) => dateFormatter(value),

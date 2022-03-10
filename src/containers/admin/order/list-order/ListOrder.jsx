@@ -97,6 +97,10 @@ export default function ListOrder() {
       label: "Quantity",
     },
     {
+      id: "product_price",
+      label: "Price Per Unit (₹)",
+    },
+    {
       id: "user_name",
       label: "Customer Name",
     },
