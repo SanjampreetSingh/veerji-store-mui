@@ -8,9 +8,9 @@ export default function MilkSubscription() {
   const loading = useLoader();
 
   const [user, setUser] = useState({});
-    const [sale, setSale] = useState([]);
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [sale] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [monthYear, setMonthYear] = useState(new Date());
   const [error, setError] = useState({
     isError: false,
