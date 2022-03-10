@@ -22,6 +22,8 @@ export const editLocality = (id, data) =>
 export const getAllCategory = () => ApiCall(action.GET, "category/");
 export const getCategory = (id) => ApiCall(action.GET, `category/${id}/`);
 export const addCategory = (data) => ApiCall(action.POST, "category/", data);
+export const editCategory = (id, data) =>
+  ApiCall(action.PUT, `category/${id}/`, data);
 
 // Product API
 export const getAllProduct = () => ApiCall(action.GET, "product/");
