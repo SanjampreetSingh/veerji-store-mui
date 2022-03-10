@@ -44,7 +44,7 @@ export default function DeliveryDetails(props) {
             color="text.secondary"
             gutterBottom
             sx={{
-              bsaleTop: (theme) => `1px solid ${theme.palette.divider}`,
+              borderTop: (theme) => `1px solid ${theme.palette.divider}`,
               mb: 4,
             }}
           >

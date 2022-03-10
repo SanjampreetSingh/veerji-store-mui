@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 
 import MilkSubscriptionComponent from "../../../components/user/milk-subscription/MilkSubscriptionComponent";
-import { getUserDetails } from "../../../services/services";
+import { getUserDetails, getSalePerMonth } from "../../../services/services";
 import { useLoader } from "../../../context/loader/LoaderProvider";
 
 export default function MilkSubscription() {
   const loading = useLoader();
 
   const [user, setUser] = useState({});
-  const [sale] = useState([]);
+  const [sale, setSale] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [monthYear, setMonthYear] = useState(new Date());
@@ -44,10 +44,42 @@ export default function MilkSubscription() {
       });
   };
 
+  const getSale = (month, year) => {
+    loading?.startLoader();
+    getSalePerMonth(month, year)
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
+        } else {
+          setSale(res?.data);
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  };
+
   useEffect(() => {
     getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    getSale("0" + (monthYear.getMonth() + 1), monthYear.getFullYear());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monthYear]);
 
   const dateFormatter = (value) => {
     return new Date(value).toISOString().split("T")[0];
