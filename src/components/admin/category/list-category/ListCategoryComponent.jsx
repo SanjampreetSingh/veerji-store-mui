@@ -14,10 +14,10 @@ import IconButton from "@mui/material/IconButton";
 
 import { Link } from "react-router-dom";
 
-export default function ListProductComponent(props) {
+export default function ListCategoryComponent(props) {
   const {
     page,
-    product,
+    category,
     columns,
     rowsPerPage,
     handleChangePage,
@@ -29,15 +29,15 @@ export default function ListProductComponent(props) {
       <Grid item xs={12}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
           <Typography align="center" variant="h3">
-            Product List
+            Category List
           </Typography>
         </Paper>
       </Grid>
 
       <Grid item md={3}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-          <Button variant="contained" to="/admin/product/add" component={Link}>
-            Add new product
+          <Button variant="contained" to="/admin/category/add" component={Link}>
+            Add new category
           </Button>
         </Paper>
       </Grid>
@@ -66,7 +66,7 @@ export default function ListProductComponent(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {product
+                {category
                   ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     return (
@@ -87,7 +87,7 @@ export default function ListProductComponent(props) {
                                   color="secondary"
                                   aria-label="edit"
                                   component={Link}
-                                  to={"/admin/product/" + row?.id?.toString()}
+                                  to={"/admin/category/" + row?.id?.toString()}
                                   size="small"
                                   sx={{
                                     border: "1px solid",
@@ -110,7 +110,7 @@ export default function ListProductComponent(props) {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={product.length}
+            count={category.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

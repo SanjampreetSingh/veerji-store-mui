@@ -9,6 +9,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import MapIcon from "@mui/icons-material/Map";
 import KeyboardCommandKeyIcon from "@mui/icons-material/KeyboardCommandKey";
 import KitchenIcon from "@mui/icons-material/Kitchen";
+import CategoryIcon from "@mui/icons-material/Category";
 
 import { Link } from "react-router-dom";
 
@@ -37,6 +38,12 @@ export const mainListItems = (
         <KitchenIcon />
       </ListItemIcon>
       <ListItemText primary="Products" />
+    </ListItemButton>
+    <ListItemButton component={Link} to="/admin/category">
+      <ListItemIcon>
+        <CategoryIcon />
+      </ListItemIcon>
+      <ListItemText primary="Categories" />
     </ListItemButton>
     <ListItemButton component={Link} to="/admin/locality">
       <ListItemIcon>
