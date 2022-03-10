@@ -28,6 +28,8 @@ export const getAllProduct = () => ApiCall(action.GET, "product/");
 export const getAllListProducts = () => ApiCall(action.GET, "list/product/");
 export const getProduct = (id) => ApiCall(action.GET, `product/${id}/`);
 export const addProduct = (data) => ApiCall(action.POST, "product/", data);
+export const editProduct = (id, data) =>
+  ApiCall(action.PUT, `product/${id}/`, data);
 
 // User API
 export const getAllUser = () => ApiCall(action.GET, "user/");

@@ -21,7 +21,9 @@ export default function FormOrderComponent(props) {
       <Breadcrumbs aria-label="breadcrumb">
         <Link to="/admin">Dashboard</Link>
         <Link to="/admin/order">Order</Link>
-        <Typography color="text.primary">Edit Order</Typography>
+        <Typography color="text.primary">
+          {updateBool ? "Edit Order" : "Add Order"}
+        </Typography>
       </Breadcrumbs>
 
       <Grid item xs={12}>
@@ -43,7 +45,7 @@ export default function FormOrderComponent(props) {
             >
               Go Back
             </Button>
-            {updateBool ? "Update order" : "Add Order"}
+            {updateBool ? "Edit Order" : "Add Order"}
           </Typography>
         </Paper>
       </Grid>

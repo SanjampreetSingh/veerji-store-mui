@@ -28,6 +28,8 @@ import ListOrder from "../containers/admin/order/list-order/ListOrder";
 import AddOrder from "../containers/admin/order/add-order/AddOrder";
 import EditOrder from "../containers/admin/order/edit-order/EditOrder";
 import ListProduct from "../containers/admin/product/list-product/ListProduct";
+import AddProduct from "../containers/admin/product/add-product/AddProduct";
+import EditProduct from "../containers/admin/product/edit-product/EditProduct";
 
 function AdminDashboard() {
   return <h1>Admin</h1>;
@@ -76,6 +78,8 @@ export default function UIRouter() {
         <AdminRouter exact path="/admin/order/add" component={AddOrder} />
         <AdminRouter exact path="/admin/order/:id" component={EditOrder} />
         <AdminRouter exact path="/admin/product" component={ListProduct} />
+        <AdminRouter exact path="/admin/product/add" component={AddProduct} />
+        <AdminRouter exact path="/admin/product/:id" component={EditProduct} />
         {/* User Routes */}
         <UserRouter
           exact

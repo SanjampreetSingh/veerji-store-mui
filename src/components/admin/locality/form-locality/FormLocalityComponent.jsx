@@ -18,7 +18,9 @@ export default function FormLocalityComponent(props) {
       <Breadcrumbs aria-label="breadcrumb">
         <Link to="/admin">Dashboard</Link>
         <Link to="/admin/locality">Locality</Link>
-        <Typography color="text.primary">Edit Locality</Typography>
+        <Typography color="text.primary">
+          {updateBool ? "Edit Locality" : "Add Locality"}
+        </Typography>
       </Breadcrumbs>
 
       <Grid item xs={12}>
@@ -40,7 +42,7 @@ export default function FormLocalityComponent(props) {
             >
               Go Back
             </Button>
-            {updateBool ? "Update locality" : "Add locality"}
+            {updateBool ? "Edit Locality" : "Add Locality"}
           </Typography>
         </Paper>
       </Grid>
