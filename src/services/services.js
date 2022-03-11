@@ -51,6 +51,8 @@ export const getAllSale = () => ApiCall(action.GET, "sale/");
 export const getSale = (id) => ApiCall(action.GET, `sale/${id}/`);
 export const getSalePerMonth = (month, year) =>
   ApiCall(action.GET, `get/sale-per-user/${month}/${year}/`);
+export const searchsale = (search) =>
+  ApiCall(action.GET, `sale/?search=${search}`);
 export const addSale = (data) => ApiCall(action.POST, "sale/", data);
 export const editSale = (id, data) => ApiCall(action.PUT, `sale/${id}/`, data);
 export const deleteSale = (id) => ApiCall(action.DELETE, `sale/${id}/`);

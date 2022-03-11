@@ -10,6 +10,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -19,8 +21,11 @@ export default function ListOrderComponent(props) {
   const {
     page,
     order,
+    search,
     columns,
+    setSearch,
     rowsPerPage,
+    handleSearch,
     handleChangePage,
     handleChangeRowsPerPage,
   } = props;
@@ -43,7 +48,42 @@ export default function ListOrderComponent(props) {
         </Paper>
       </Grid>
       <Grid item md={6}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>
+        <Paper
+          component="form"
+          sx={{
+            p: "4px",
+            display: "flex",
+            alignItems: "center",
+          }}
+          variant="outlined"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onBlur={(e) => {
+              e.preventDefault();
+            }}
+            placeholder="Search with customer name and phone number"
+            inputProps={{
+              "aria-label": "Search with customer name and phone number",
+            }}
+            type="search"
+          />
+          <IconButton
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={handleSearch}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Paper>
       </Grid>
       <Grid item md={3}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>

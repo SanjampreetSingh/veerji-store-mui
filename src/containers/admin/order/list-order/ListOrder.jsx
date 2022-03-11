@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { deleteSale, getAllSale } from "../../../../services/services";
+import {
+  deleteSale,
+  getAllSale,
+  searchsale,
+} from "../../../../services/services";
 import ListOrderComponent from "../../../../components/admin/order/list-order/ListOrderComponent";
 import { useLoader } from "../../../../context/loader/LoaderProvider";
 
@@ -9,6 +13,7 @@ export default function ListOrder() {
 
   const [sale, setSale] = useState([]);
   const [page, setPage] = useState(0);
+  const [search, setSearch] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [error, setError] = useState({
     isError: false,
@@ -42,10 +47,48 @@ export default function ListOrder() {
       });
   };
 
+  function loadSearchData(search_key) {
+    loading?.startLoader();
+    searchsale(search_key)
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
+        } else {
+          setSale(res?.data);
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  }
+
   useEffect(() => {
-    loadOrders();
+    if (search === "") {
+      loadOrders();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [search]);
+
+  const handleSearch = () => {
+    if (search === "") {
+      loadOrders();
+    } else {
+      loadSearchData(search);
+    }
+  };
 
   const deleteOrder = (id) => {
     loading?.startLoader();
@@ -129,9 +172,12 @@ export default function ListOrder() {
       page={page}
       order={sale}
       error={error}
+      search={search}
       columns={columns}
+      setSearch={setSearch}
       deleteOrder={deleteOrder}
       rowsPerPage={rowsPerPage}
+      handleSearch={handleSearch}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
     />
