@@ -34,17 +34,11 @@ export default function ListLocalityComponent(props) {
         </Paper>
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid item xs={3}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-          <Grid item md={4}>
-            <Button
-              variant="contained"
-              to="/admin/locality/add"
-              component={Link}
-            >
-              Add new locality
-            </Button>
-          </Grid>
+          <Button variant="contained" to="/admin/locality/add" component={Link}>
+            Add new locality
+          </Button>
         </Paper>
       </Grid>
 

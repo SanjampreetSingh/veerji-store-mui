@@ -41,12 +41,6 @@ export default function ListCategoryComponent(props) {
           </Button>
         </Paper>
       </Grid>
-      <Grid item md={6}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>
-      </Grid>
-      <Grid item md={3}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>
-      </Grid>
 
       <Grid item xs={12}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
