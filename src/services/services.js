@@ -31,6 +31,8 @@ export const getAllListProducts = () => ApiCall(action.GET, "list/product/");
 export const getProduct = (id) => ApiCall(action.GET, `product/${id}/`);
 export const searchProduct = (search) =>
   ApiCall(action.GET, `product/?search=${search}`);
+export const filterProductByCategory = (category) =>
+  ApiCall(action.GET, `product/?category=${category}`);
 export const addProduct = (data) => ApiCall(action.POST, "product/", data);
 export const editProduct = (id, data) =>
   ApiCall(action.PUT, `product/${id}/`, data);

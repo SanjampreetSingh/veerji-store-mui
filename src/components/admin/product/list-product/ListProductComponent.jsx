@@ -10,9 +10,13 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import InputBase from "@mui/material/InputBase";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import IconButton from "@mui/material/IconButton";
+import CategoryIcon from "@mui/icons-material/Category";
 
 import { Link } from "react-router-dom";
 
@@ -22,10 +26,13 @@ export default function ListProductComponent(props) {
     search,
     columns,
     product,
+    category,
     setSearch,
     rowsPerPage,
     handleSearch,
+    filterCategory,
     handleChangePage,
+    setFilterCategory,
     handleChangeRowsPerPage,
   } = props;
 
@@ -85,7 +92,33 @@ export default function ListProductComponent(props) {
         </Paper>
       </Grid>
       <Grid item md={3}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>
+        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
+          <TextField
+            select
+            fullWidth
+            size="small"
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            label="Filter by Category"
+            aria-label="Filter by Category"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <CategoryIcon />
+                </InputAdornment>
+              ),
+            }}
+          >
+            <MenuItem value="">
+              <em>Select Category</em>
+            </MenuItem>
+            {category.map((val, idx) => (
+              <MenuItem key={idx} value={val?.id}>
+                {val?.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Paper>
       </Grid>
 
       <Grid item xs={12}>
