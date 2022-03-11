@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {
   deleteSale,
   getAllSale,
-  searchsale,
+  searchSale,
 } from "../../../../services/services";
 import ListOrderComponent from "../../../../components/admin/order/list-order/ListOrderComponent";
 import { useLoader } from "../../../../context/loader/LoaderProvider";
@@ -49,7 +49,7 @@ export default function ListOrder() {
 
   function loadSearchData(search_key) {
     loading?.startLoader();
-    searchsale(search_key)
+    searchSale(search_key)
       .then((res) => {
         loading?.stopLoader();
         if (res?.error) {

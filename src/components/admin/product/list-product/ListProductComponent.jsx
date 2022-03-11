@@ -9,6 +9,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import IconButton from "@mui/material/IconButton";
 
@@ -17,9 +19,12 @@ import { Link } from "react-router-dom";
 export default function ListProductComponent(props) {
   const {
     page,
-    product,
+    search,
     columns,
+    product,
+    setSearch,
     rowsPerPage,
+    handleSearch,
     handleChangePage,
     handleChangeRowsPerPage,
   } = props;
@@ -42,7 +47,42 @@ export default function ListProductComponent(props) {
         </Paper>
       </Grid>
       <Grid item md={6}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>
+        <Paper
+          component="form"
+          sx={{
+            p: "4px",
+            display: "flex",
+            alignItems: "center",
+          }}
+          variant="outlined"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onBlur={(e) => {
+              e.preventDefault();
+            }}
+            placeholder="Search with product name"
+            inputProps={{
+              "aria-label": "Search with product name",
+            }}
+            type="search"
+          />
+          <IconButton
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={handleSearch}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Paper>
       </Grid>
       <Grid item md={3}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>

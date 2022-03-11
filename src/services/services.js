@@ -29,6 +29,8 @@ export const editCategory = (id, data) =>
 export const getAllProduct = () => ApiCall(action.GET, "product/");
 export const getAllListProducts = () => ApiCall(action.GET, "list/product/");
 export const getProduct = (id) => ApiCall(action.GET, `product/${id}/`);
+export const searchProduct = (search) =>
+  ApiCall(action.GET, `product/?search=${search}`);
 export const addProduct = (data) => ApiCall(action.POST, "product/", data);
 export const editProduct = (id, data) =>
   ApiCall(action.PUT, `product/${id}/`, data);
@@ -51,7 +53,7 @@ export const getAllSale = () => ApiCall(action.GET, "sale/");
 export const getSale = (id) => ApiCall(action.GET, `sale/${id}/`);
 export const getSalePerMonth = (month, year) =>
   ApiCall(action.GET, `get/sale-per-user/${month}/${year}/`);
-export const searchsale = (search) =>
+export const searchSale = (search) =>
   ApiCall(action.GET, `sale/?search=${search}`);
 export const addSale = (data) => ApiCall(action.POST, "sale/", data);
 export const editSale = (id, data) => ApiCall(action.PUT, `sale/${id}/`, data);
