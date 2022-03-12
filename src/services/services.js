@@ -62,3 +62,5 @@ export const editSale = (id, data) => ApiCall(action.PUT, `sale/${id}/`, data);
 export const deleteSale = (id) => ApiCall(action.DELETE, `sale/${id}/`);
 export const addRecurringSale = () =>
   ApiCall(action.POST, "add/sale/recurring_product/");
+export const filterSaleByCreated = (created) =>
+  ApiCall(action.GET, `sale/?created=${created}`);

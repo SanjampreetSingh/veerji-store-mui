@@ -58,6 +58,7 @@ export default function DeliveryDetails(props) {
               >
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    disableFuture
                     views={["year", "month"]}
                     label="Select Year and Month"
                     minDate={new Date("2022-01-01")}
