@@ -4,6 +4,7 @@ import {
   deleteSale,
   getAllSale,
   searchSale,
+  filterSaleByCreated,
 } from "../../../../services/services";
 import ListOrderComponent from "../../../../components/admin/order/list-order/ListOrderComponent";
 import { useLoader } from "../../../../context/loader/LoaderProvider";
@@ -14,6 +15,7 @@ export default function ListOrder() {
   const [sale, setSale] = useState([]);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [dateFilter, setDateFilter] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [error, setError] = useState({
     isError: false,
@@ -74,11 +76,38 @@ export default function ListOrder() {
       });
   }
 
+  function loadSaleByCreatedFilter(created_date) {
+    loading?.startLoader();
+    const date = created_date.toISOString().split("T")[0];
+    filterSaleByCreated(date)
+      .then((res) => {
+        loading?.stopLoader();
+        if (res?.error) {
+          setError({
+            isError: true,
+            errorMessage: JSON.stringify(res?.error?.response?.data),
+          });
+        } else {
+          setSale(res?.data);
+          setError({
+            isError: false,
+            errorMessage: "",
+          });
+        }
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        setError({
+          isError: true,
+          errorMessage: JSON.stringify(error?.response?.data),
+        });
+      });
+  }
+
   useEffect(() => {
     if (search === "") {
       loadOrders();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
@@ -87,6 +116,14 @@ export default function ListOrder() {
       loadOrders();
     } else {
       loadSearchData(search);
+    }
+  };
+
+  const handleDateFilter = () => {
+    if (dateFilter === null) {
+      loadOrders();
+    } else {
+      loadSaleByCreatedFilter(dateFilter);
     }
   };
 
@@ -175,9 +212,12 @@ export default function ListOrder() {
       search={search}
       columns={columns}
       setSearch={setSearch}
+      dateFilter={dateFilter}
       deleteOrder={deleteOrder}
       rowsPerPage={rowsPerPage}
       handleSearch={handleSearch}
+      setDateFilter={setDateFilter}
+      handleDateFilter={handleDateFilter}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
     />

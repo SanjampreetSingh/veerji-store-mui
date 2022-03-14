@@ -9,8 +9,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import InputBase from "@mui/material/InputBase";
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -24,8 +28,11 @@ export default function ListOrderComponent(props) {
     search,
     columns,
     setSearch,
+    dateFilter,
     rowsPerPage,
     handleSearch,
+    setDateFilter,
+    handleDateFilter,
     handleChangePage,
     handleChangeRowsPerPage,
   } = props;
@@ -86,7 +93,26 @@ export default function ListOrderComponent(props) {
         </Paper>
       </Grid>
       <Grid item md={3}>
-        <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}></Paper>
+        <Paper sx={{ p: "7px", display: "flex", flexDirection: "column" }}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              clearable
+              disableFuture
+              disableHighlightToday
+              openTo="year"
+              label="Filter by Order Date"
+              views={["year", "month", "day"]}
+              minDate={new Date("2022-01-01")}
+              maxDate={new Date("2030-06-01")}
+              value={dateFilter}
+              onChange={(newValue) => {
+                setDateFilter(newValue);
+              }}
+              onClose={handleDateFilter}
+              renderInput={(params) => <TextField {...params} size="small" />}
+            />
+          </LocalizationProvider>
+        </Paper>
       </Grid>
 
       <Grid item xs={12}>
