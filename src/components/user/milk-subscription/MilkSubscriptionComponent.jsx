@@ -3,19 +3,21 @@ import UserHeroes from "./UserHeroes";
 
 export default function MilkSubscriptionComponent(props) {
   const {
-    user,
-    monthYear,
-    setMonthYear,
-    page,
+    open,
     sale,
+    page,
+    user,
+    setOpen,
     columns,
+    monthYear,
     rowsPerPage,
+    setMonthYear,
     handleChangePage,
     handleChangeRowsPerPage,
   } = props;
   return (
     <>
-      <UserHeroes user={user} />
+      <UserHeroes user={user} open={open} setOpen={setOpen} />
       <DeliveryDetails
         monthYear={monthYear}
         setMonthYear={setMonthYear}

@@ -17,12 +17,12 @@ import TableRow from "@mui/material/TableRow";
 
 export default function DeliveryDetails(props) {
   const {
-    monthYear,
-    setMonthYear,
-    columns,
     sale,
-    rowsPerPage,
     page,
+    columns,
+    monthYear,
+    rowsPerPage,
+    setMonthYear,
     handleChangePage,
     handleChangeRowsPerPage,
   } = props;

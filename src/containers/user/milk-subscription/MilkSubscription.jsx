@@ -8,6 +8,7 @@ export default function MilkSubscription() {
   const loading = useLoader();
 
   const [user, setUser] = useState({});
+  const [open, setOpen] = useState(false);
   const [sale, setSale] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -116,14 +117,16 @@ export default function MilkSubscription() {
 
   return (
     <MilkSubscriptionComponent
+      open={open}
       page={page}
       sale={sale}
       user={user}
       error={error}
-      monthYear={monthYear}
+      setOpen={setOpen}
       columns={columns}
-      setMonthYear={setMonthYear}
+      monthYear={monthYear}
       rowsPerPage={rowsPerPage}
+      setMonthYear={setMonthYear}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
     />
