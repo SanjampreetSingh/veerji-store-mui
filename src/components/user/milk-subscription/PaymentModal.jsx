@@ -53,7 +53,7 @@ export default function PaymentModal(props) {
             <Button
               size="small"
               component="a"
-              href="upi://pay?pa=9888120303@paytm&amp;pn=Veerji Departmental Store &amp;cu=INR"
+              href="upi://pay?pa=jmohankhalsa@okaxis&amp;pn=Veerji Departmental Store &amp;cu=INR"
             >
               Payment
             </Button>
