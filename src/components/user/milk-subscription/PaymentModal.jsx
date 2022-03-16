@@ -50,13 +50,13 @@ export default function PaymentModal(props) {
             <Button size="small" onClick={() => setOpen(false)}>
               Close
             </Button>
-            <Button
+            {/* <Button
               size="small"
               component="a"
               href="upi://pay?pa=jmohankhalsa@okaxis&amp;pn=Veerji Departmental Store &amp;cu=INR"
             >
               Payment
-            </Button>
+            </Button> */}
           </CardActions>
         </Card>
       </Box>
