@@ -128,10 +128,16 @@ export default function MilkSubscription() {
 
   const showRazorpay = async (e) => {
     await loadScript();
-
-    const data = await startPayment().then((res) => {
-      return res;
-    });
+    loading?.startLoader();
+    const data = await startPayment()
+      .then((res) => {
+        loading?.stopLoader();
+        return res;
+      })
+      .catch((error) => {
+        loading?.stopLoader();
+        console.log(error?.response?.data);
+      });
 
     // in data we will receive an object from the backend with the information about the payment
     //that has been made by the user
