@@ -64,3 +64,6 @@ export const addRecurringSale = () =>
   ApiCall(action.POST, "add/sale/recurring_product/");
 export const filterSaleByCreated = (date) =>
   ApiCall(action.GET, `filter/sale_by_date/${date}/`);
+
+// Payments API
+export const startPayment = () => ApiCall(action.POST, "pay/");

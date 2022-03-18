@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 
 import MilkSubscriptionComponent from "../../../components/user/milk-subscription/MilkSubscriptionComponent";
-import { getUserDetails, getSalePerMonth } from "../../../services/services";
+import {
+  startPayment,
+  getUserDetails,
+  getSalePerMonth,
+} from "../../../services/services";
 import { useLoader } from "../../../context/loader/LoaderProvider";
 
 export default function MilkSubscription() {
@@ -115,6 +119,56 @@ export default function MilkSubscription() {
     },
   ];
 
+  const loadScript = () => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+  };
+
+  const showRazorpay = async (e) => {
+    await loadScript();
+
+    const data = await startPayment().then((res) => {
+      return res;
+    });
+
+    // in data we will receive an object from the backend with the information about the payment
+    //that has been made by the user
+    var options = {
+      key_id: process.env.REACT_APP_PAYMENT_PUBLIC_KEY,
+      key_secret: process.env.REACT_APP_PAYMENT_SECRET_KEY,
+      amount: data?.payment?.toString(),
+      currency: "INR",
+      name: "Veerji Departmental Store",
+      description: "Pay for your milk subscription online.",
+      image: "https://www.veerji.store/icon.png",
+      order_id: data?.data?.payment.id,
+      handler: function (response) {
+        // we will handle success by calling handlePaymentSuccess method and
+        // will pass the response that we've got from razorpay
+        // handlePaymentSuccess(response);
+        console.log(1);
+      },
+      prefill: {
+        name: user?.name,
+        email: user?.email,
+        contact: user?.phone,
+      },
+      notes: {
+        address:
+          "Veerji Departmental Store, G Block SBS Nagar, Pakhowal Road, Ludhiana",
+      },
+      theme: {
+        color: "#5048E5",
+      },
+    };
+
+    var rzp1 = new window.Razorpay(options);
+    rzp1.open();
+    e.preventDefault();
+  };
+
   return (
     <MilkSubscriptionComponent
       open={open}
@@ -126,6 +180,7 @@ export default function MilkSubscription() {
       columns={columns}
       monthYear={monthYear}
       rowsPerPage={rowsPerPage}
+      showRazorpay={showRazorpay}
       setMonthYear={setMonthYear}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}

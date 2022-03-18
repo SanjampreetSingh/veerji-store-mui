@@ -9,7 +9,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import PaymentModal from "./PaymentModal";
 
 export default function UserHeroes(props) {
-  const { user, open, setOpen } = props;
+  const { user, open, setOpen, showRazorpay } = props;
 
   return (
     <>
@@ -109,9 +109,16 @@ export default function UserHeroes(props) {
               Payment: ₹{" " + user?.payment}
             </Typography>
           </Grid>
-          <Button variant="contained" onClick={() => setOpen(true)}>
-            Make Payment
-          </Button>
+          {user?.payment !== 0 ? (
+            <>
+              <Button variant="contained" onClick={() => setOpen(true)}>
+                Make Payment by UPI QR
+              </Button>
+              <Button variant="contained" onClick={showRazorpay}>
+                Make Payment Online
+              </Button>
+            </>
+          ) : null}
         </Stack>
       </Box>
     </>

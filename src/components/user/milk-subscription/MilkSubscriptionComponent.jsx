@@ -11,13 +11,19 @@ export default function MilkSubscriptionComponent(props) {
     columns,
     monthYear,
     rowsPerPage,
+    showRazorpay,
     setMonthYear,
     handleChangePage,
     handleChangeRowsPerPage,
   } = props;
   return (
     <>
-      <UserHeroes user={user} open={open} setOpen={setOpen} />
+      <UserHeroes
+        user={user}
+        open={open}
+        setOpen={setOpen}
+        showRazorpay={showRazorpay}
+      />
       <DeliveryDetails
         monthYear={monthYear}
         setMonthYear={setMonthYear}
