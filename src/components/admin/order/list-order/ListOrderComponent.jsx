@@ -21,24 +21,41 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { Link } from "react-router-dom";
 
+import DeleteDialog from "../../common/delete-dialog/DeleteDialog";
+
 export default function ListOrderComponent(props) {
   const {
     page,
     order,
     search,
     columns,
+    deleteId,
     setSearch,
     dateFilter,
+    deleteOpen,
     rowsPerPage,
+    setDeleteId,
+    setDeleteOpen,
     handleSearch,
     setDateFilter,
     handleDateFilter,
     handleChangePage,
+    handleOrderDelete,
     handleChangeRowsPerPage,
   } = props;
 
   return (
     <>
+      <DeleteDialog
+        open={deleteOpen}
+        deleteId={deleteId}
+        button1Title="Cancel"
+        button2Title="Delete"
+        setOpen={setDeleteOpen}
+        button2Action={handleOrderDelete}
+        title="Do you want to delete this Order?"
+        description="Deleting this order will also reduce amount from User's pending payment."
+      />
       <Grid item xs={12}>
         <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
           <Typography align="center" variant="h3">
@@ -175,6 +192,10 @@ export default function ListOrderComponent(props) {
                                     size="small"
                                     sx={{
                                       border: "1px solid",
+                                    }}
+                                    onClick={() => {
+                                      setDeleteOpen(true);
+                                      setDeleteId(row?.id?.toString());
                                     }}
                                   >
                                     <DeleteIcon />

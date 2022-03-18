@@ -15,6 +15,8 @@ export default function ListOrder() {
   const [sale, setSale] = useState([]);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [dateFilter, setDateFilter] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [error, setError] = useState({
@@ -211,12 +213,17 @@ export default function ListOrder() {
       error={error}
       search={search}
       columns={columns}
+      deleteId={deleteId}
       setSearch={setSearch}
+      deleteOpen={deleteOpen}
       dateFilter={dateFilter}
+      setDeleteId={setDeleteId}
       deleteOrder={deleteOrder}
       rowsPerPage={rowsPerPage}
       handleSearch={handleSearch}
+      setDeleteOpen={setDeleteOpen}
       setDateFilter={setDateFilter}
+      handleOrderDelete={deleteOrder}
       handleDateFilter={handleDateFilter}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
