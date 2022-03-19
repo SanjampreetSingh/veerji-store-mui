@@ -51,7 +51,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Localities" />
     </ListItemButton>
-    <ListItemButton component={Link} to="/admin/actions">
+    <ListItemButton component={Link} to="/admin/action">
       <ListItemIcon>
         <KeyboardCommandKeyIcon />
       </ListItemIcon>

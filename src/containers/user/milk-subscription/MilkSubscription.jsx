@@ -78,6 +78,7 @@ export default function MilkSubscription() {
 
   useEffect(() => {
     getUser();
+    getSale("0" + (monthYear.getMonth() + 1), monthYear.getFullYear());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

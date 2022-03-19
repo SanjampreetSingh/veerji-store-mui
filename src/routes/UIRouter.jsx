@@ -33,6 +33,7 @@ import EditProduct from "../containers/admin/product/edit-product/EditProduct";
 import ListCategory from "../containers/admin/category/list-category/ListCategory";
 import AddCategory from "../containers/admin/category/add-category/AddCategory";
 import EditCategory from "../containers/admin/category/edit-category/EditCategory";
+import Action from "../containers/admin/action/Action";
 
 function AdminDashboard() {
   return <h1>Admin</h1>;
@@ -90,6 +91,7 @@ export default function UIRouter() {
           path="/admin/category/:id"
           component={EditCategory}
         />
+        <AdminRouter exact path="/admin/action" component={Action} />
         {/* User Routes */}EditCategory
         <UserRouter
           exact
